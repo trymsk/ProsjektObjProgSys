@@ -1,0 +1,1 @@
+# Example simple Electron application
