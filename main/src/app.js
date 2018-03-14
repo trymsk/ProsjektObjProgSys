@@ -8,7 +8,19 @@ const connection = mysql.createConnection({
   database : 'g_oops_10'   // Replace [username] with your username
 });
 
-// Connect to MySQL-server
+// Kobling til MySQL-server
 connection.connect(function(error) {
   if(error) throw error; // If error, show error in console and return from this function
 });
+
+var uName = document.getElementById('uName');
+var password = document.getElementById('password');
+
+// Funksjon for å logge inn
+function logIn(){
+  if(uName === "Trym" && password === "123"){
+  mainWindow.loadURL('fille://' + __dirname + '/app.html')
+} else {
+  window.alert("Feil brukernavn eller passord");
+}
+};

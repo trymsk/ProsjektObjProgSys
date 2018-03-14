@@ -1,0 +1,115 @@
+.icon-bar {
+    width: 100%; /* Full-width */
+    background-color: #8D8C8F; /* Dark-grey background */
+    overflow: auto; /* Overflow due to float */
+}
+
+.icon-bar a {
+    float: right;
+    text-align: center; /* Center-align text */
+    width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
+    padding: 12px 0; /* Some top and bottom padding */
+    transition: all 0.3s ease; /* Add transition for hover effects */
+    color: white; /* White text color */
+    font-size: 40px; /* Increased font size */
+}
+
+.icon-bar a:hover {
+    color: #000; /*Farge når musen er over*/
+}
+
+
+.LogInBox {
+  margin: 100px;
+  background-color: white;
+  height:425px;
+  width:auto;
+}
+.psw{
+  font-family: sans-serif;
+}
+
+/* Input */
+input[type=text], input[type=password] {
+    width: 49.8%;
+    padding: 12px 20px;
+    margin: 8px 0px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* stil for alle knapper */
+button {
+    background-color: #B72F24;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 25%;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    transition: all 0.3s ease
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    background-color: black;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+.Logo {
+  height: 50px;
+  width: 50px;
+}
+/* Avatar image */
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .iconbar a {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+    button {
+      float: none;
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 14px;
+    }
+    input {
+      display: block;
+      text-align: center;
+      width: 100%;
+      margin: 25%;
+      padding: 14px;
+    }
+
+}
+
+body {
+  background-color: #B72F24;
+}

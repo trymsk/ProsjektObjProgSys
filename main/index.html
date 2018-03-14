@@ -4,23 +4,42 @@
     <meta charset="utf-8">
     <title></title>
     <!-- CSS-link -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/style.css">
     <!-- JS-link -->
-    <script src='app.js'></script>
+    <script src='src/app.js'></script>
     <!-- Ikonbiblioteklink -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   </head>
   <body>
 
     <div class="LogInBox">
       <div class="icon-bar">
-          <a class="active" href="#index"><i class="fa fa-home"></i></a>
-          <a href="#" id="admin">Admin</a>
+          <a href="#" id="admin"><i class="fab fa-angular"></i></a>
       </div>
-      <input type="text" id="uName" placeholder="Brukeravn">
-      <input type="password" id="password" placeholder="•••••••••">
-      <button type="button" onclick="logIn()" id="logInButton">Logg Inn</button>
+
+      <form action="action_page.php">
+    <div class="imgcontainer">
+      <img src="Bilder\red_cross_logo.png" alt="Logo" class="Logo">
+    </div>
+
+    <div class="container">
+
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit">Login</button>
+      <button type="onclick"> Registrer ny bruker</button>
 
     </div>
+
+    <div class="container" style="background-color:#0000">
+      <span class="psw">Glemt <a href="#">passord?</a></span>
+    </div>
+  </form>
+
+    </div>
+
+
   </body>
 </html>
