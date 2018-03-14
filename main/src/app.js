@@ -13,13 +13,13 @@ connection.connect(function(error) {
   if(error) throw error; // If error, show error in console and return from this function
 });
 
-var uName = document.getElementById('uName');
-var password = document.getElementById('password');
+var uname = document.getElementById('uname');
+var password = document.getElementById('psw');
 
 // Funksjon for å logge inn
 function logIn(){
-  if(uName === "Trym" && password === "123"){
-  mainWindow.loadURL('fille://' + __dirname + '/app.html')
+  if(uname === "trymskogseth@hotmail.com" && password === "1q2w3e"){
+  mainWindow.loadURL('fille://' + __dirname + '/main_site.html')
 } else {
   window.alert("Feil brukernavn eller passord");
 }
