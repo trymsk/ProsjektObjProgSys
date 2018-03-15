@@ -20,9 +20,9 @@
 
 
 .LogInBox {
-  margin: 100px;
+  margin: 50px;
   background-color: white;
-  height:425px;
+  height:500px;
   width:auto;
 }
 .psw{
@@ -41,7 +41,7 @@ input[type=text], input[type=password] {
 
 /* stil for alle knapper */
 button {
-    background-color: #B72F24;
+    background-color: #8D8C8F;
     color: white;
     padding: 14px 20px;
     margin: 8px 25%;
@@ -93,13 +93,6 @@ span.psw {
         margin: 0;
         padding: 14px;
     }
-    button {
-      float: none;
-      display: block;
-      width: 100%;
-      margin: 0;
-      padding: 14px;
-    }
     input {
       display: block;
       text-align: center;
@@ -110,6 +103,78 @@ span.psw {
 
 }
 
+label {
+  font-size: 12px;
+  font-weight: normal;
+}
 body {
   background-color: #B72F24;
+  font-family: Verdana, sans-serif;}
+* {box-sizing: border-box}
+/* Full-width input fields */
+  input[type=text], input[type=password], input[type=number] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+
+}
+
+
+
+
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }
