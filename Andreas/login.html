@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- CSS-link -->
+    <link rel="stylesheet" href="src/style.css">
+    <!-- JS-link -->
+    <script src='src/app.js'></script>
+    <!-- Ikonbiblioteklink -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  </head>
+  <body>
+  <div class="LogInBox">
+      <div class="icon-bar">
+          <a href="#" id="admin"><i class="fab fa-angular"></i></a>
+      </div>
+    <div class="imgcontainer">
+      <img src="Bilder\red_cross_logo.png" alt="Logo" class="Logo">
+    </div>
+    <div class="container">
+      <input type="text" placeholder="E-post" id="uname" required>
+      <input type="password" placeholder="Passord" id="psw" required>
+      <button type="submit">Login</button>
+    <button onclick="document.getElementById('id01').style.display='block'" id="regBtn">Registrer ny bruker</button>
+    <span class="psw">Glemt <a href="#">passord?</a></span>
+    </div>
+  </div>
+
+<!--  Modal (registreringsskjema form) -->
+<div id="id01" class="modal">
+  <div class="modal-content">
+    <div class="container">
+      <h1>Registrer ny bruker</h1>
+      <p>Fyll ut dette skjemaet for å registrere deg</p>
+      <hr>
+      <label for="epost">Epost (brukernavn)</label>
+      <input type="text" placeholder="eksempel@gmail.com" name="epost" required>
+
+      <label for="psw">Passord</label>
+      <input type="password" placeholder="••••••••" name="psw" required>
+
+      <label for="psw-gjenta">Gjenta passord</label>
+      <input type="password" placeholder="••••••••" name="psw-gjenta" required>
+
+      <label for="name">Fullt navn</label>
+      <input type="text" placeholder="Ola Normann" name="fullt-navn" required>
+
+      <label for="tlf-nummer">Telefon</label>
+      <input type="number" placeholder="+4792233311" name ="tlf-nummer" required>
+
+      <label for="adr-fylke">Fylke</label>
+      <input type="text" placeholder="Trøndelag" name ="adr-fylke" required>
+
+      <label for="adr-postnummer">Postnummer</label>
+      <input type="number" placeholder="7030" name="adr-postnummer" required>
+
+      <label for="adr-poststed">Poststed</label>
+      <input type="text" placeholder="Trondheim" name="adr-poststed" required>
+
+      <label for="adr-gate">Gateadresse</label>
+      <input type="text" placeholder="Gateadresse" name="adr-gate" required>
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Avbryt</button>
+        <button type="submit" class="signup">Registrer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+  </body>
+</html>
