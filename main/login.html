@@ -11,11 +11,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   </head>
   <body>
-    <div class="LogInBox">
+  <div class="LogInBox">
       <div class="icon-bar">
           <a href="#" id="admin"><i class="fab fa-angular"></i></a>
       </div>
-    <form action="action_page.php">
     <div class="imgcontainer">
       <img src="Bilder\red_cross_logo.png" alt="Logo" class="Logo">
     </div>
@@ -25,13 +24,12 @@
       <button type="submit">Login</button>
     <button onclick="document.getElementById('id01').style.display='block'" id="regBtn">Registrer ny bruker</button>
     <span class="psw">Glemt <a href="#">passord?</a></span>
-  </div>
-  </form>
+    </div>
   </div>
 
 <!--  Modal (registreringsskjema form) -->
 <div id="id01" class="modal">
-  <form class="modal-content" action="/action_registration.php">
+  <div class="modal-content">
     <div class="container">
       <h1>Registrer ny bruker</h1>
       <p>Fyll ut dette skjemaet for å registrere deg</p>
@@ -68,7 +66,7 @@
       </div>
 
     </div>
-  </form>
+  </div>
 </div>
 
 
