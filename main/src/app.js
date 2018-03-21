@@ -1,15 +1,45 @@
+// @flow
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { Link, NavLink, HashRouter, Switch, Route } from 'react-router-dom';
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
+import { User, userService, Post, postService } from './services';
 
-const mysql = require('mysql');
+class ErrorMessage extends React.Component<{}> {
+  refs: {
+    closeButton: HTMLButtonElement
+  };
+  message = '';
 
-// MySQL kobling
-const connection = mysql.createConnection({
-  host     : 'mysql.stud.iie.ntnu.no',
-  user     : 'g_oops_10',  // Replace [username] with your username
-  password : 'qtjxbwXr',     // Replace [password] with your password
-  database : 'g_oops_10'   // Replace [username] with your username
-});
+  render() {
+    let displayValue;
+    if(this.message=='') displayValue = 'none';
+    else displayValue = 'inline';
 
+    return(
+      <div style={{display: displayValue}}>
+        <b><font color='red'>{this.message}</font></b>
+        <button ref='closeButton'>x</button>
+      </div>
+    );
+  }
 
-connection.connect(function(error) {
-  if(error) throw error; // If error, show error in console and return from this function
-});
+  componentDidMount() {
+   errorMessage = this;
+   this.refs.closeButton.onclick = () => {
+     this.message = '';
+     this.forceUpdate();
+   };
+ }
+
+ componentWillUnmount() {
+   errorMessage = null;
+ }
+
+ set(post: string) {
+   this.message = post;
+   this.forceUpdate();
+ }
+}
+let errorMessage: ?ErrorMessage;

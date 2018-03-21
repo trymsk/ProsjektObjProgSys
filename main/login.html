@@ -6,7 +6,7 @@
     <!-- CSS-link -->
     <link rel="stylesheet" href="src/style.css">
     <!-- JS-link -->
-    <script src='src/app.js'></script>
+    <script src='src/services.js'></script>
     <!-- Ikonbiblioteklink -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   </head>
@@ -68,7 +68,10 @@
     </div>
   </div>
 </div>
-
+<script>
+require("babel-register");
+require("./src/app.js");
+</script>
 
 
   </body>
