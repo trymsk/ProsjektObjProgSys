@@ -43,3 +43,23 @@ class ErrorMessage extends React.Component<{}> {
  }
 }
 let errorMessage: ?ErrorMessage;
+
+let root = document.getElementById('root');
+if(root) {
+  ReactDOM.render((
+    <HashRouter>
+      <div>
+        <ErrorMessage />
+        <Menu />
+        <Switch>
+          <Route exact path='/login' component={LogIn} />
+          <Route exact path='/' component={SignUp} />
+          <Route exact path='/signout' component={SignOut} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/friends' component={Friends} />
+          <Route exact path='/user/:id' component={UserDetails} />
+        </Switch>
+      </div>
+    </HashRouter>
+  ), root);
+}

@@ -2,7 +2,7 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const ElectronTitlebarWindows = require('electron-titlebar-windows');
-const titlebar = new ElectronTitlebarWindows(darkMode);
+const titlebar = new ElectronTitlebarWindows("darkMode");
 
 let mainWindow;
 
