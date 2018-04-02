@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Link, NavLink, HashRouter, Switch, Route } from 'react-router-dom';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
-import { User, userService, Post, postService } from './services';
+import {User, userService} from './services';
 
 class ErrorMessage extends React.Component<{}> {
   refs: {
@@ -53,8 +53,7 @@ class Menu extends React.Component<{}> {
       return (
         <div>
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Home</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.firstName}</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/friends'>Friends</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.fullName}</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/signout'>Sign Out</NavLink>{' '}
         </div>
       );
@@ -85,9 +84,19 @@ class SignIn extends React.Component<{}> {
 
   render() {
     return (
-      <div>
-        Username: <input type='text' ref='signInUsername' />
-        <button ref='signInButton'>Sign In</button>
+      <div class="LogInBox">
+          <div class="icon-bar">
+              <a href="#" id="admin"><i class="fab fa-angular"></i></a>
+          </div>
+        <div class="imgcontainer">
+          <img src="Bilder\red_cross_logo.png" alt="Logo" class="Logo"></img>
+        </div>
+        <div class="container">
+          <input type="text" placeholder="E-post" id="uname" ref ='signInUsername'/>
+          <input type="password" placeholder="Passord" id="psw"/>
+          <button ref='signInButton'>Login</button>
+        <button onclick="document.getElementById('id01').style.display='block'" id="regBtn">Registrer ny bruker</button>
+        </div>
       </div>
     );
   }
@@ -114,10 +123,45 @@ class SignUp extends React.Component<{}> {
 
   render() {
     return (
-      <div>
-        Username: <input type='text' ref='signUpUsername' />
-        First name: <input type='text' ref='signUpFirstName' />
-        <button ref='signUpButton'>Sign Up</button>
+      <div id='id01'>
+      <div class="modal-content">
+        <div class="container">
+          <h1>Registrer ny bruker</h1>
+          <p>Fyll ut dette skjemaet for å registrere deg</p>
+          <hr></hr>
+          <label for="email">Epost (brukernavn)</label>
+          <input type="text" placeholder="eksempel@gmail.com" name="email" ref='signUpUsername'required></input>
+
+          <label for="psw">Passord</label>
+          <input type="password" placeholder="••••••••" name="psw" required></input>
+
+          <label for="psw-repeat">Gjenta passord</label>
+          <input type="password" placeholder="••••••••" name="psw-repeat" required></input>
+
+          <label for="full-name">Fullt navn</label>
+          <input type="text" placeholder="Ola Normann" name="full-name" required></input>
+
+          <label for="tlf-number">Telefon</label>
+          <input type="number" placeholder="+4792233311" name ="tlf-number" required></input>
+
+          <label for="adr-fylke">Fylke</label>
+          <input type="text" placeholder="Trøndelag" name ="adr-fylke" required></input>
+
+          <label for="adr-postnummer">Postnummer</label>
+          <input type="number" placeholder="7030" name="adr-postnummer" required></input>
+
+          <label for="adr-poststed">Poststed</label>
+          <input type="text" placeholder="Trondheim" name="adr-poststed" required></input>
+
+          <label for="adr-gate">Gateadresse</label>
+          <input type="text" placeholder="Gateadresse" name="adr-gate" required></input>
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Avbryt</button>
+            <button type="submit" class="signup" ref='signUpButton'>Registrer</button>
+          </div>
+
+        </div>
+      </div>
       </div>
     );
   }
@@ -145,29 +189,12 @@ class SignOut extends React.Component<{}> {
 }
 
 class Home extends React.Component<{}> {
-  posts: Post[] = [];
 
   render() {
-    let listItems = [];
-    for(let post of this.posts) {
-      listItems.push(
-        <li key={post.id}>From{' '}
-          <Link to={'/user/' + post.fromUserId}>
-            {post.fromUserFirstName}
-          </Link> to {' '}
-          <Link to={'/user/' + post.toUserId}>
-            {post.toUserFirstName}
-          </Link>: {post.text}
-        </li>
-      );
-    }
 
     return (
       <div>
         Posts from friends:
-        <ul>
-          {listItems}
-        </ul>
       </div>
     );
   }
@@ -181,46 +208,9 @@ class Home extends React.Component<{}> {
 
     if(menu) menu.forceUpdate();
 
-    postService.getPostsNotFromUser(signedInUser.id).then((posts) => {
-      this.posts = posts;
-      this.forceUpdate();
-    }).catch((error: Error) => {
-      if(errorMessage) errorMessage.set("Failed getting posts");
-    });
   }
 }
 
-class Friends extends React.Component<{}> {
-  friends: User[] = [];
-
-  render() {
-    let listItems = [];
-    for(let friend of this.friends) {
-      listItems.push(<li key={friend.id}><Link to={'/user/' + friend.id}>{friend.firstName}</Link></li>);
-    }
-
-    return (
-      <div>
-        Friends:
-        <ul>
-          {listItems}
-        </ul>
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    let signedInUser = userService.getSignedInUser();
-    if(signedInUser) {
-      userService.getFriends(signedInUser.id).then((friends) => {
-        this.friends = friends;
-        this.forceUpdate();
-      }).catch((error: Error) => {
-        if(errorMessage) errorMessage.set('Could not get friends');
-      });
-    }
-  }
-}
 
 class UserDetails extends React.Component<{ match: { params: { id: number } } }> {
   refs: {
@@ -229,58 +219,17 @@ class UserDetails extends React.Component<{ match: { params: { id: number } } }>
   }
 
   user = new User();
-  posts: Post[] = [];
 
   render() {
-    let listItems = [];
-    for(let post of this.posts) {
-      listItems.push(<li key={post.id}>From <Link to={'/user/' + post.fromUserId}>{post.fromUserFirstName}</Link>: {post.text}</li>);
-    }
 
-    return (
-      <div>
-        Posts to {this.user.firstName}:
-        <ul>
-          {listItems}
-        </ul>
-        Make post:
-        <input type='text' ref='newPost' />
-        <button ref='newPostButton'>Post</button>
-      </div>
-    );
   }
 
   update() {
-    userService.getUser(this.props.match.params.id).then((user) => {
-      this.user = user;
-      this.forceUpdate();
-    }).catch((error: Error) => {
-      if(errorMessage) errorMessage.set("Failed getting user");
-    });
-    postService.getPostsToUser(this.props.match.params.id).then((posts) => {
-      this.posts = posts;
-      this.forceUpdate();
-    }).catch((error: Error) => {
-      if(errorMessage) errorMessage.set("Failed getting posts");
-    });
   }
 
   componentDidMount() {
     this.update();
 
-    this.refs.newPostButton.onclick = () => {
-      let signedInUser = userService.getSignedInUser();
-      if(!signedInUser) {
-        history.push('/signin');
-        return;
-      }
-      postService.addPost(signedInUser.id, this.props.match.params.id, this.refs.newPost.value).then(() => {
-        this.refs.newPost.value = '';
-        this.update();
-      }).catch((error: Error) => {
-        if(errorMessage) errorMessage.set("Error adding post");
-      });
-    }
   }
 
   // Called when the this.props-object change while the component is mounted
@@ -302,7 +251,6 @@ if(root) {
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/signout' component={SignOut} />
           <Route exact path='/' component={Home} />
-          <Route exact path='/friends' component={Friends} />
           <Route exact path='/user/:id' component={UserDetails} />
         </Switch>
       </div>

@@ -30,14 +30,14 @@ connect();
 
 class User {
   id: number;
-  Username: string;
+  username: string;
   firstName: string;
 }
 
 class UserService {
-  signIn(Username: string): Promise<void> {
+  signIn(username: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Users where B_Epost=?', [Username], (error, result) => {
+      connection.query('SELECT * FROM Bruker where B_Epost=?', [username], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -53,9 +53,9 @@ class UserService {
     });
   }
 
-  signUp(Username: string, firstName: string): Promise<void> {
+  signUp(username: string, firstName: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO Users (B_Epost, B_Fornavn) VALUES (?, ?)', [Username, firstName], (error, result) => {
+      connection.query('INSERT INTO Bruker (B_Epost, B_Fornavn) VALUES (?, ?)', [username, firstName], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -67,7 +67,7 @@ class UserService {
 
         let user = new User();
         user.id = result.insertId;
-        user.Username = Username;
+        user.username = username;
         user.firstName = firstName;
         localStorage.setItem('signedInUser', JSON.stringify(user)); // Store User-object in browser
         resolve();
@@ -88,7 +88,7 @@ class UserService {
 
   getUser(id: number): Promise<User> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Users where B_Medlemsnummer=?', [id], (error, result) => {
+      connection.query('SELECT * FROM Bruker where B_Medlemsnummer=?', [id], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -174,4 +174,4 @@ class UserService {
 let userService = new UserService();
 // let postService = new PostService();
 
-export { User, userService, Post, postService };
+export { User, userService };
