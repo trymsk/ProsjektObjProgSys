@@ -1,17 +1,25 @@
 {
-  "name": "PROSJEKT",
+  "name": "electron-react-example",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron -r babel-register .",
+    "flow": "flow"
   },
   "dependencies": {
+    "history": "^4.7.2",
     "mysql": "^2.15.0",
-    "npm": "^5.7.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "electron": "^1.8.2"
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "electron": "^1.8.2",
+    "flow-bin": "^0.66.0"
   }
 }
