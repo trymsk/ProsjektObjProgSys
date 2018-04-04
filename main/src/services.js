@@ -32,12 +32,13 @@ class User {
   id: number;
   username: string;
   firstName: string;
+  password: string;
 }
 
 class UserService {
-  signIn(username: string): Promise<void> {
+  signIn(username: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Bruker where B_Epost=?', [username], (error, result) => {
+      connection.query('SELECT * FROM Bruker where B_Epost=? AND B_Passord=?', [username, password], (error, result) => {
         if(error) {
           reject(error);
           return;

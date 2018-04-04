@@ -20,9 +20,9 @@ class ErrorMessage extends React.Component<{}> {
     else displayValue = 'inline';
 
     return (
-      <div style={{display: displayValue}}>
-        <b><font color='red'>{this.message}</font></b>
-        <button ref='closeButton'>x</button>
+      <div id="errorDiv" style={{display: displayValue}}>
+        <b><font id="errorMsg" color='black'>{this.message}</font></b>
+        <button id='closeBtn' ref='closeButton'>Lukk</button>
       </div>
     );
   }
@@ -53,7 +53,7 @@ class Menu extends React.Component<{}> {
       return (
         <div>
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Home</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.fullName}</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.firstName}</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/signout'>Sign Out</NavLink>{' '}
         </div>
       );
@@ -79,7 +79,8 @@ let menu: ?Menu;
 class SignIn extends React.Component<{}> {
   refs: {
     signInUsername: HTMLInputElement,
-    signInButton: HTMLButtonElement
+    signInButton: HTMLButtonElement,
+    signInPassword: HTMLInputElement
   }
 
   render() {
@@ -93,7 +94,7 @@ class SignIn extends React.Component<{}> {
         </div>
         <div class="container">
           <input type="text" placeholder="E-post" id="uname" ref ='signInUsername'/>
-          <input type="password" placeholder="Passord" id="psw"/>
+          <input type="password" placeholder="Passord" id="psw" ref ='signInPassword'/>
           <button ref='signInButton'>Login</button>
         <button onclick="document.getElementById('id01').style.display='block'" id="regBtn">Registrer ny bruker</button>
         </div>
@@ -105,10 +106,10 @@ class SignIn extends React.Component<{}> {
     if(menu) menu.forceUpdate();
 
     this.refs.signInButton.onclick = () => {
-      userService.signIn(this.refs.signInUsername.value).then(() => {
+      userService.signIn(this.refs.signInUsername.value, this.refs.signInPassword.value).then(() => {
         history.push('/');
       }).catch((error: Error) => {
-        if(errorMessage) errorMessage.set("Incorrect username");
+        if(errorMessage) errorMessage.set("Feil brukernavn og/eller passord");
       });
     };
   }
@@ -123,46 +124,19 @@ class SignUp extends React.Component<{}> {
 
   render() {
     return (
-      <div id='id01'>
-      <div class="modal-content">
-        <div class="container">
+        <div className="container">
           <h1>Registrer ny bruker</h1>
           <p>Fyll ut dette skjemaet for å registrere deg</p>
           <hr></hr>
-          <label for="email">Epost (brukernavn)</label>
-          <input type="text" placeholder="eksempel@gmail.com" name="email" ref='signUpUsername'required></input>
+          <label>Epost (brukernavn)</label>
+          <input type="text" placeholder="eksempel@gmail.com" ref='signUpUsername'required></input>
 
-          <label for="psw">Passord</label>
-          <input type="password" placeholder="••••••••" name="psw" required></input>
+          <label>Fullt navn</label>
+          <input type="text" placeholder="Ola" ref='signUpFirstName' required></input>
 
-          <label for="psw-repeat">Gjenta passord</label>
-          <input type="password" placeholder="••••••••" name="psw-repeat" required></input>
-
-          <label for="full-name">Fullt navn</label>
-          <input type="text" placeholder="Ola Normann" name="full-name" required></input>
-
-          <label for="tlf-number">Telefon</label>
-          <input type="number" placeholder="+4792233311" name ="tlf-number" required></input>
-
-          <label for="adr-fylke">Fylke</label>
-          <input type="text" placeholder="Trøndelag" name ="adr-fylke" required></input>
-
-          <label for="adr-postnummer">Postnummer</label>
-          <input type="number" placeholder="7030" name="adr-postnummer" required></input>
-
-          <label for="adr-poststed">Poststed</label>
-          <input type="text" placeholder="Trondheim" name="adr-poststed" required></input>
-
-          <label for="adr-gate">Gateadresse</label>
-          <input type="text" placeholder="Gateadresse" name="adr-gate" required></input>
-          <div class="clearfix">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Avbryt</button>
-            <button type="submit" class="signup" ref='signUpButton'>Registrer</button>
-          </div>
+          <button ref='signUpButton'>Registrer</button>
 
         </div>
-      </div>
-      </div>
     );
   }
 

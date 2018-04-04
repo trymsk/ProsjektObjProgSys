@@ -32,6 +32,18 @@ body {
   font-family: sans-serif;
 }
 
+#errorDiv {
+  position: absolute;
+  top: 75%;
+  left:30%;
+}
+
+#closeBtn {
+  position: absolute;
+  left: 100%;
+  top:0%;
+}
+
 /* Input */
 input[type=text], input[type=password] {
     width: 49.8%;
