@@ -80,23 +80,24 @@ class SignIn extends React.Component<{}> {
   refs: {
     signInUsername: HTMLInputElement,
     signInButton: HTMLButtonElement,
+    signUpButton: HTMLButtonElement,
     signInPassword: HTMLInputElement
   }
 
   render() {
     return (
-      <div class="LogInBox">
-          <div class="icon-bar">
-              <a href="#" id="admin"><i class="fab fa-angular"></i></a>
+      <div className="LogInBox">
+          <div className="icon-bar">
+              <a href="#" id="admin"><i className="fab fa-angular"></i></a>
           </div>
-        <div class="imgcontainer">
-          <img src="Bilder\red_cross_logo.png" alt="Logo" class="Logo"></img>
+        <div className="imgcontainer">
+          <img src="Bilder\red_cross_logo.png" alt="Logo" className="Logo"></img>
         </div>
-        <div class="container">
+        <div className="container">
           <input type="text" placeholder="E-post" id="uname" ref ='signInUsername'/>
           <input type="password" placeholder="Passord" id="psw" ref ='signInPassword'/>
           <button ref='signInButton'>Login</button>
-        <button onclick="document.getElementById('id01').style.display='block'" id="regBtn">Registrer ny bruker</button>
+        <button ref='signUpButton' id="regBtn">Registrer ny bruker</button>
         </div>
       </div>
     );
@@ -104,6 +105,10 @@ class SignIn extends React.Component<{}> {
 
   componentDidMount() {
     if(menu) menu.forceUpdate();
+
+    this.refs.signUpButton.onclick = () => {
+      history.push('/signup');
+    }
 
     this.refs.signInButton.onclick = () => {
       userService.signIn(this.refs.signInUsername.value, this.refs.signInPassword.value).then(() => {
@@ -119,6 +124,12 @@ class SignUp extends React.Component<{}> {
   refs: {
     signUpUsername: HTMLInputElement,
     signUpFirstName: HTMLInputElement,
+    signUpPassword: HTMLInputElement,
+    signUpLastName: HTMLInputElement,
+    signUpTelephone: HTMLInputElement,
+    signUpStreetadress: HTMLInputElement,
+    signUpPostalcode: HTMLInputElement,
+    signUpPlace: HTMLInputElement,
     signUpButton: HTMLButtonElement
   }
 
@@ -126,13 +137,31 @@ class SignUp extends React.Component<{}> {
     return (
         <div className="container">
           <h1>Registrer ny bruker</h1>
-          <p>Fyll ut dette skjemaet for å registrere deg</p>
+          <p>Vennligst fyll ut registreringsskjemaet</p>
           <hr></hr>
           <label>Epost (brukernavn)</label>
-          <input type="text" placeholder="eksempel@gmail.com" ref='signUpUsername'required></input>
+          <input type="text" placeholder="eksempel@gmail.com" ref='signUpUsername'required/>
 
-          <label>Fullt navn</label>
-          <input type="text" placeholder="Ola" ref='signUpFirstName' required></input>
+          <label>Passord</label>
+          <input type="password" placeholder="Passord" ref='signUpPassword' required/>
+
+          <label>Fornavn</label>
+          <input type="text" placeholder="Ola" ref='signUpFirstName' required/>
+
+          <label>Etternavn</label>
+          <input type="text" placeholder="Nordmann" ref='signUpLastName' required/>
+
+          <label>Telefon</label>
+          <input type="text" placeholder="+4792233311" ref='signUpTelephone' required/>
+
+          <label>Gateadresse</label>
+          <input type="text" placeholder="Norgesveien 1" ref="signUpStreetadress" required/>
+
+          <label>Postnummer</label>
+          <input type="text" placeholder="0129" ref="signUpPostalcode" required/>
+
+          <label>Poststed</label>
+          <input type="text" placeholder="Oslo" ref="signUpPlace" required/>
 
           <button ref='signUpButton'>Registrer</button>
 
@@ -142,9 +171,10 @@ class SignUp extends React.Component<{}> {
 
   componentDidMount() {
     this.refs.signUpButton.onclick = () => {
-      userService.signUp(this.refs.signUpUsername.value, this.refs.signUpFirstName.value).then(() => {
+      userService.signUp(this.refs.signUpUsername.value, this.refs.signUpFirstName.value, this.refs.signUpLastName.value, this.refs.signUpPassword.value, this.refs.signUpTelephone.value, this.refs.signUpStreetadress.value, this.refs.signUpPostalcode.value, this.refs.signUpPlace.value).then(() => {
         history.push('/');
       }).catch((error: Error) => {
+        console.log(error);
         if(errorMessage) errorMessage.set("Could not create account");
       });
     };
@@ -168,7 +198,7 @@ class Home extends React.Component<{}> {
 
     return (
       <div>
-        Posts from friends:
+        Home
       </div>
     );
   }
@@ -198,18 +228,8 @@ class UserDetails extends React.Component<{ match: { params: { id: number } } }>
 
   }
 
-  update() {
-  }
-
   componentDidMount() {
-    this.update();
 
-  }
-
-  // Called when the this.props-object change while the component is mounted
-  // For instance, when navigating from path /user/1 to /user/2
-  componentWillReceiveProps() {
-    setTimeout(() => { this.update(); }, 0); // Enqueue this.update() after props has changed
   }
 }
 

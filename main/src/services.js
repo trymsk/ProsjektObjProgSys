@@ -32,7 +32,14 @@ class User {
   id: number;
   username: string;
   firstName: string;
+  lastName: string;
   password: string;
+  telephone: string;
+  streetAdress: string;
+  postalCode: string;
+  place: string;
+
+
 }
 
 class UserService {
@@ -54,14 +61,14 @@ class UserService {
     });
   }
 
-  signUp(username: string, firstName: string): Promise<void> {
+  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, streetAdress: string, postalCode: string, place: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO Bruker (B_Epost, B_Fornavn) VALUES (?, ?)', [username, firstName], (error, result) => {
+      connection.query('INSERT INTO Bruker (B_Epost, B_Fornavn, B_Etternavn, B_Passord, B_Telefon, B_Adresse, B_Postnr, B_Poststed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [username, firstName, lastName, password, telephone, streetAdress, postalCode, place], (error, result) => {
         if(error) {
           reject(error);
           return;
         }
-        if(typeof(result.insertId) !== 'number') {
+        if(typeof(result.insertId) != 'number') {
           reject(new Error('Could not read insertId'))
           return;
         }
@@ -70,6 +77,12 @@ class UserService {
         user.id = result.insertId;
         user.username = username;
         user.firstName = firstName;
+        user.lastName = lastName;
+        user.password = password;
+        user.telephone = telephone;
+        user.streetAdress = streetAdress;
+        user.postalCode = postalCode;
+        user.place = place;
         localStorage.setItem('signedInUser', JSON.stringify(user)); // Store User-object in browser
         resolve();
       });
@@ -104,18 +117,6 @@ class UserService {
     });
   }
 
-  // getFriends(id: number): Promise<User[]> {
-  //   return new Promise((resolve, reject) => {
-  //     connection.query('SELECT * FROM Users where B_Medlemsnummer!=?', [B_Medlemsnummer], (error, result) => {
-  //       if(error) {
-  //         reject(error);
-  //         return;
-  //       }
-  //
-  //       resolve(result);
-  //     });
-  //   });
-  // }
 }
 
 // class Post {
