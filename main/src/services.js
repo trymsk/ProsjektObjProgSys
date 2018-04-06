@@ -119,14 +119,9 @@ class UserService {
 
 }
 
-// class Post {
-//   id: number;
-//   text: string;
-//   fromUserId: number;
-//   fromUserFirstName: string;
-//   toUserId: number;
-//   toUserFirstName: string;
-// }
+class Arrangement {
+  id: number;
+  }
 //
 // class PostService {
 //   getPostsToUser(userId: number): Promise<Post[]> {
