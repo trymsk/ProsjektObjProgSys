@@ -132,7 +132,9 @@ class Event {
 
   }
 
-  class EventService{}
+  class EventService {
+    
+  }
 
 
 let userService = new UserService();
