@@ -52,9 +52,11 @@ class Menu extends React.Component<{}> {
     if(signedInUser) {
       return (
         <div>
-          <NavLink activeStyle={{color: 'green'}} exact to='/'>Home</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.firstName}</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/signout'>Sign Out</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to='/addevent'> Legg til arrangement</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to='/signout'>Logg ut</NavLink>{' '}
+
         </div>
       );
     }

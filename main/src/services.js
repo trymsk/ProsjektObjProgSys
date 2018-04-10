@@ -119,56 +119,22 @@ class UserService {
 
 }
 
-class Arrangement {
+class Event {
   id: number;
+  title: string;
+  type: string;
+  place: string;
+  placeAdress: string;
+  date: string;
+  time: string;
+  contact: string;
+  info: string;
+
   }
-//
-// class PostService {
-//   getPostsToUser(userId: number): Promise<Post[]> {
-//     return new Promise((resolve, reject) => {
-//       connection.query('SELECT Posts.id AS id, text, fromUserId, FromUsers.firstName AS fromUserFirstName, toUserId, ToUsers.firstName AS toUserFirstName FROM Posts, Users AS FromUsers, Users AS ToUsers WHERE fromUserId = FromUsers.id AND toUserId = ToUsers.id AND ToUsers.id = ? ORDER BY Posts.id DESC', [userId], (error, result) => {
-//         if(error) {
-//           reject(error);
-//           return;
-//         }
-//
-//         resolve(result);
-//       });
-//     });
-//   }
-//
-//   getPostsNotFromUser(userId: number): Promise<Post[]> {
-//     return new Promise((resolve, reject) => {
-//       connection.query('SELECT Posts.id AS id, text, fromUserId, toUserId, FromUsers.firstName AS fromUserFirstName, ToUsers.firstName AS toUserFirstName FROM Posts, Users AS FromUsers, Users AS ToUsers WHERE fromUserId = FromUsers.id AND toUserId = ToUsers.id AND FromUsers.id != ? ORDER BY Posts.id DESC', [userId], (error, result) => {
-//         if(error) {
-//           reject(error);
-//           return;
-//         }
-//
-//         resolve(result);
-//       });
-//     });
-//   }
-//
-//   addPost(fromUserId: number, toUserId: number, text: string): Promise<void> {
-//     return new Promise((resolve, reject) => {
-//       connection.query('INSERT INTO Posts (text, fromUserId, toUserId) values (?, ?, ?)', [text, fromUserId, toUserId], (error, result) => {
-//         if(error) {
-//           reject(error);
-//           return;
-//         }
-//         if(typeof(result.insertId) !== 'number') {
-//           reject(new Error('Could not read insertId'))
-//           return;
-//         }
-//
-//         resolve();
-//       });
-//     });
-//   }
-// }
+
+  class EventService{}
+
 
 let userService = new UserService();
-// let postService = new PostService();
-
+let eventService = new EventService();
 export { User, userService };
