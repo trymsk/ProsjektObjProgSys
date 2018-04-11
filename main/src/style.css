@@ -1,6 +1,4 @@
-body {
 
-}
 .icon-bar {
     width: 100%; /* Full-width */
     background-color: #8D8C8F; /* Dark-grey background */
@@ -44,15 +42,6 @@ body {
   top:0%;
 }
 
-/* Input */
-input[type=text], input[type=password] {
-    width: 49.8%;
-    padding: 12px 20px;
-    margin: 8px 0px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
 
 /* stil for alle knapper */
 button {
@@ -90,6 +79,23 @@ img.avatar {
 /* Add padding to containers */
 .container {
     padding: 16px;
+    background-color: white;
+    font-size: 12px;
+}
+
+.table{
+  padding: 16px;
+  background-color: white;
+  font-size: 12px;
+  float:left;
+  width:50%;
+  height:100%;
+}
+
+.row:after{
+  content:'';
+  display:table;
+  clear:both;
 }
 
 /* The "Forgot password" text */
@@ -137,40 +143,6 @@ body {
 
 }
 
-
-
-
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  background-color: #f44336;
-}
-
-
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  padding-top: 50px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* Style the horizontal ruler */
 hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
@@ -192,4 +164,18 @@ hr {
   content: "";
   clear: both;
   display: table;
+}
+
+#eventList{
+  width: 40%;
+
+  background-color: white;
+}
+
+#eventList.ul{
+  list-style-type: square;
+}
+
+#Navlink{
+  background-color: white;
 }

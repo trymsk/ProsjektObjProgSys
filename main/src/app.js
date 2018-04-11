@@ -46,12 +46,13 @@ class ErrorMessage extends React.Component<{}> {
 }
 let errorMessage: ?ErrorMessage;
 
+
 class Menu extends React.Component<{}> {
   render() {
     let signedInUser = userService.getSignedInUser();
     if(signedInUser) {
       return (
-        <div>
+        <div id="NavLink">
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.firstName}</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/addevent'> Legg til arrangement</NavLink>{' '}
@@ -132,12 +133,32 @@ class SignUp extends React.Component<{}> {
     signUpStreetadress: HTMLInputElement,
     signUpPostalcode: HTMLInputElement,
     signUpPlace: HTMLInputElement,
-    signUpButton: HTMLButtonElement
+    signUpButton: HTMLButtonElement,
+    signUpAmbulance: HTMLInputElement,
+    signUpDriver160: HTMLInputElement,
+    signUpDriverBE: HTMLInputElement,
+    signUpHKP: HTMLInputElement,
+    signUpSRW: HTMLInputElement,
+    signUpSR: HTMLInputElement,
+    signUpSRS: HTMLInputElement,
+    signUpAdvFH:HTMLInputElement,
+    signUpBoatDriver: HTMLInputElement,
+    signUpVHF: HTMLInputElement,
+    signUpVSeaR: HTMLInputElement,
+    signUpSeaR: HTMLInputElement,
+    signUpVLK: HTMLInputElement,
+    signUpSMDriver: HTMLInputElement,
+    signUpSMKurs: HTMLInputElement,
+    signUpATV: HTMLInputElement,
+    signUpDSensor: HTMLInputElement
+
+
   }
 
   render() {
     return (
-        <div className="container">
+      <div className='row'>
+        <div className="table">
           <h1>Registrer ny bruker</h1>
           <p>Vennligst fyll ut registreringsskjemaet</p>
           <hr></hr>
@@ -164,16 +185,57 @@ class SignUp extends React.Component<{}> {
 
           <label>Poststed</label>
           <input type="text" placeholder="Oslo" ref="signUpPlace" required/>
+        </div>
+        <div className='table'>
+          <h1> Kvalifikasjoner</h1>
+          <p>Sjekk av for de kvalifikasjonene du har</p>
+          <hr></hr>
+          <input type='checkbox' ref='signUpAmbulance'/>Ambulansesertifisering<br/>
+
+          <input type='checkbox' ref='signUpDriver160'/>Førerkort 160 Utrykningskjøring<br/>
+
+          <input type='checkbox' ref='signUpDriverBE'/>Førerkort BE<br/>
+
+          <input type='checkbox' ref='signUpHKP'/>Hjelpekorpsprøven<br/>
+
+          <input type='checkbox' ref='signUpSR'/>Søk og Redning<br/>
+
+          <input type='checkbox' ref='signUpSRW'/>Søk og Redning Vinter<br/>
+
+          <input type='checkbox' ref='signUpSRS'/>Søk og Redning Sommer<br/>
+
+          <input type='checkbox' ref='signUpAdvFH'/>Videregående Førstehjelpskurs<br/>
+
+          <input type='checkbox' ref='signUpBoatDriver'/>Båtførerprøven<br/>
+
+          <input type='checkbox' ref='signUpVHF'/>Maritimt VHF-sertifikat<br/>
+
+          <input type='checkbox' ref='signUpSeaR'/>Kvalifisert sjøredningskurs<br/>
+
+          <input type='checkbox' ref='signUpVSeaR'/>Videregående sjøredningskurs<br/>
+
+          <input type='checkbox' ref='signUpVLK'/>Vaktlederkurs<br/>
+
+          <input type='checkbox' ref='signUpSMDriver'/>Førerkort S Snøscooter<br/>
+
+          <input type='checkbox' ref='signUpSMKurs'/>Kvalifisert Snøscooterkurs<br/>
+
+          <input type='checkbox' ref='signUpATV'/>Kvalifisert ATV-kurs<br/>
+
+          <input type='checkbox' ref='signUpDSensor'/>Distriktsensorkurs<br/>
 
           <button ref='signUpButton'>Registrer</button>
-
+          </div>
         </div>
     );
   }
 
+
   componentDidMount() {
     this.refs.signUpButton.onclick = () => {
-      userService.signUp(this.refs.signUpUsername.value, this.refs.signUpFirstName.value, this.refs.signUpLastName.value, this.refs.signUpPassword.value, this.refs.signUpTelephone.value, this.refs.signUpStreetadress.value, this.refs.signUpPostalcode.value, this.refs.signUpPlace.value).then(() => {
+      userService.signUp(this.refs.signUpUsername.value, this.refs.signUpFirstName.value, this.refs.signUpLastName.value, this.refs.signUpPassword.value, this.refs.signUpTelephone.value, this.refs.signUpStreetadress.value, this.refs.signUpPostalcode.value, this.refs.signUpPlace.value, this.refs.signUpAmbulance.checked, this.refs.signUpDriver160.checked,
+        this.refs.signUpDriverBE.checked, this.refs.signUpHKP.checked, this.refs.signUpSRW.checked, this.refs.signUpSR.checked, this.refs.signUpSRS.checked, this.refs.signUpAdvFH.checked, this.refs.signUpBoatDriver.checked, this.refs.signUpVHF.checked,
+      this.refs.signUpSeaR.checked, this.refs.signUpVSeaR.checked, this.refs.signUpVLK.checked, this.refs.signUpSMDriver.checked, this.refs.signUpSMKurs.checked, this.refs.signUpATV.checked, this.refs.signUpDSensor.checked).then(() => {
         history.push('/');
       }).catch((error: Error) => {
         console.log(error);
@@ -196,11 +258,17 @@ class SignOut extends React.Component<{}> {
 
 class Home extends React.Component<{}> {
 
+  refs: {
+    EventList: HTMLDivElement
+  }
   render() {
 
     return (
       <div>
-        Home
+        <div id='eventList' ref='EventList'>
+        <ul>
+        </ul>
+        </div>
       </div>
     );
   }

@@ -38,6 +38,23 @@ class User {
   streetAdress: string;
   postalCode: string;
   place: string;
+  ambulance: boolean;
+  dLicense160: boolean;
+  dLicenseBE: boolean;
+  hkp: boolean;
+  srw: boolean;
+  sr: boolean;
+  srs:boolean;
+  advFH:boolean;
+  boat: boolean;
+  vhf:boolean;
+  vseaR:boolean;
+  seaR: boolean;
+  vlk: boolean;
+  smDriver: boolean;
+  smCourse: boolean;
+  atv: boolean;
+  dSensor: boolean;
 
 
 }
@@ -61,9 +78,10 @@ class UserService {
     });
   }
 
-  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, streetAdress: string, postalCode: string, place: string): Promise<void> {
+  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, streetAdress: string, postalCode: string, place: string, ambulance: boolean, dLicense160: boolean, dLicenseBE: boolean, hkp: boolean, srw: boolean, sr: boolean, srs:boolean,
+    advFH:boolean, boat: boolean, vhf:boolean, vseaR:boolean, seaR: boolean, vlk: boolean, smDriver: boolean, smCourse: boolean, atv: boolean, dSensor: boolean): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO Bruker (B_Epost, B_Fornavn, B_Etternavn, B_Passord, B_Telefon, B_Adresse, B_Postnr, B_Poststed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [username, firstName, lastName, password, telephone, streetAdress, postalCode, place], (error, result) => {
+      connection.query('INSERT INTO Bruker (B_Epost, B_Fornavn, B_Etternavn, B_Passord, B_Telefon, B_Adresse, B_Postnr, B_Poststed) VALUES (?, ?, ?, ?, ?, ?, ?, ?); INSERT INTO Kvalifikasjoner (K_Ambulansesertifisering, K_Førerkort160, K_FørerkortBE, K_Hjelpekorpsprøve, K_SøkRedningVinter, K_SøkRedning, K_SøkRedningSommer, K_VidereFørstehjelp, K_Båtførerprøven, K_VHF-sertifikat, K_VidereSjøredning, K_KvalSjøredning, K_Vaktlederkurs, K_FørerkortScooter, K_KvalScooter, K_ATV-kurs, K_Distriktsensorkurs) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' [username, firstName, lastName, password, telephone, streetAdress, postalCode, place, ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -83,6 +101,25 @@ class UserService {
         user.streetAdress = streetAdress;
         user.postalCode = postalCode;
         user.place = place;
+        user.ambulance = ambulance;
+        user.dLicense160 = dLicense160;
+        user.dLicenseBE = dLicenseBE;
+        user.hkp = hkp;
+        user.srw = srw;
+        user.sr = sr;
+        user.srs = srs;
+        user.advFH = advFH;
+        user.boat = boat;
+        user.vhf = vhf;
+        user.vseaR = vseaR;
+        user.seaR = seaR;
+        user.vlk = vlk;
+        user.smCourse = smCourse;
+        user.smDriver = smDriver;
+        user.atv = atv;
+        user.dSensor = dSensor;
+
+
         localStorage.setItem('signedInUser', JSON.stringify(user)); // Store User-object in browser
         resolve();
       });
@@ -129,11 +166,10 @@ class Event {
   time: string;
   contact: string;
   info: string;
-
   }
 
   class EventService {
-    
+
   }
 
 
