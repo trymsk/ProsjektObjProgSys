@@ -233,8 +233,8 @@ class SignUp extends React.Component<{}> {
 
   componentDidMount() {
     this.refs.signUpButton.onclick = () => {
-      userService.signUp(this.refs.signUpUsername.value, this.refs.signUpFirstName.value, this.refs.signUpLastName.value, this.refs.signUpPassword.value, this.refs.signUpTelephone.value, this.refs.signUpStreetadress.value, this.refs.signUpPostalcode.value, this.refs.signUpPlace.value, this.refs.signUpAmbulance.checked, this.refs.signUpDriver160.checked,
-        this.refs.signUpDriverBE.checked, this.refs.signUpHKP.checked, this.refs.signUpSRW.checked, this.refs.signUpSR.checked, this.refs.signUpSRS.checked, this.refs.signUpAdvFH.checked, this.refs.signUpBoatDriver.checked, this.refs.signUpVHF.checked,
+      userService.signUp(this.refs.signUpUsername.value, this.refs.signUpFirstName.value, this.refs.signUpLastName.value, this.refs.signUpPassword.value, this.refs.signUpTelephone.value, this.refs.signUpStreetadress.value, this.refs.signUpPostalcode.value, this.refs.signUpPlace.value,
+        this.refs.signUpAmbulance.checked, this.refs.signUpDriver160.checked, this.refs.signUpDriverBE.checked, this.refs.signUpHKP.checked, this.refs.signUpSRW.checked, this.refs.signUpSR.checked, this.refs.signUpSRS.checked, this.refs.signUpAdvFH.checked, this.refs.signUpBoatDriver.checked, this.refs.signUpVHF.checked,
       this.refs.signUpSeaR.checked, this.refs.signUpVSeaR.checked, this.refs.signUpVLK.checked, this.refs.signUpSMDriver.checked, this.refs.signUpSMKurs.checked, this.refs.signUpATV.checked, this.refs.signUpDSensor.checked).then(() => {
         history.push('/');
       }).catch((error: Error) => {
