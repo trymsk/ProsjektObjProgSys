@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Link, NavLink, HashRouter, Switch, Route } from 'react-router-dom';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
-import {User, userService} from './services';
+import {User, userService, Event, eventService} from './services';
 
 class ErrorMessage extends React.Component<{}> {
   refs: {
@@ -54,7 +54,7 @@ class Menu extends React.Component<{}> {
       return (
         <div id="NavLink">
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.id}>{signedInUser.firstName}</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/addevent'> Legg til arrangement</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/signout'>Logg ut</NavLink>{' '}
 
@@ -257,18 +257,23 @@ class SignOut extends React.Component<{}> {
 }
 
 class Home extends React.Component<{}> {
-
-  refs: {
-    EventList: HTMLDivElement
-  }
+  Events: Event[] = [];
   render() {
+    let listItems=[];
 
+    for(let event of this.Events){
+      listItems.push(
+        <li key={event.eId}>{event.title}</li>
+
+      );
+    }
     return (
-      <div>
-        <div id='eventList' ref='EventList'>
+      <div className='container'>
+      <h1>Arrangementer</h1>
+      <hr></hr>
         <ul>
+        {listItems}
         </ul>
-        </div>
       </div>
     );
   }
@@ -282,27 +287,101 @@ class Home extends React.Component<{}> {
 
     if(menu) menu.forceUpdate();
 
+    eventService.getEvent().then((Events) => {
+      this.Events = Events;
+      this.forceUpdate();
+    })
+
   }
 }
 
-
-class UserDetails extends React.Component<{ match: { params: { id: number } } }> {
-  refs: {
-    newPost: HTMLInputElement,
-    newPostButton: HTMLButtonElement
+class AddEvent extends React.Component<{}>{
+  refs:{
+    eTitle: HTMLInputElement,
+    eType: HTMLInputElement,
+    ePlace: HTMLInputElement,
+    eAdress: HTMLInputElement,
+    eDate: HTMLInputElement,
+    eTime: HTMLInputElement,
+    eContact: HTMLInputElement,
+    eInfo: HTMLInputElement,
+    eButton: HTMLButtonElement
   }
-
-  user = new User();
-
-  render() {
-
+  render(){
+    return(
+    <div className='container'>
+      <label>Tittel</label>
+      <input type='text' ref='eTitle'/> <br/>
+      <label>Type</label>
+      <input type='text' ref='eType'/> <br/>
+      <label>Plass</label>
+      <input type='text' ref='ePlace'/> <br/>
+      <label>Adresse</label>
+      <input type='text' ref='eAdress'/> <br/>
+      <label>Dato </label>
+      <input type='date' ref='eDate'/>
+      <label> Tidspunkt </label>
+      <input type='time' ref='eTime'/><br/>
+      <label>Ansvarlig</label>
+      <input type='text' ref='eContact'/><br/>
+      <label>Informasjon</label>
+      <input type='text' ref='eInfo'/><br/>
+      <button ref='eButton'>Legg til</button>
+    </div>
+    );
   }
-
   componentDidMount() {
-
+    this.refs.eButton.onclick = () =>{
+      eventService.addEvent(this.refs.eTitle.value, this.refs.eType.value, this.refs.ePlace.value, this.refs.eAdress.value, this.refs.eDate.value, this.refs.eTime.value, this.refs.eContact.value, this.refs.eInfo.value).then(() => {
+        history.push('/');
+      }).catch((error: Error) => {
+        console.log(error);
+        if(errorMessage) errorMessage.set("Kunne ikke opprette arrangement");
+      });
+    };
   }
 }
 
+class UserDetails extends React.Component<{}>{
+  refs:{
+    uName: HTMLDivElement,
+    uAdress: HTMLDivElement,
+    uTelephone: HTMLDivElement,
+    uEmail: HTMLDivElement
+
+  }
+  render() {
+    return (
+      <div className='container'>
+
+        <div ref='uName'></div>
+        <hr></hr>
+
+        <label>Adresse</label><br/>
+        <div ref='uAdress'></div>
+
+        <label>Telefon</label><br/>
+        <div ref='uTelephone'></div>
+
+        <label>Epost></label>
+        <div ref='uEmail'></div>
+
+      </div>
+    );
+}
+componentDidMount(){
+  let signedInUser = userService.getSignedInUser();
+  if(!signedInUser) {
+    history.push('/signin');
+    return;
+  }
+
+  if(menu) menu.forceUpdate();
+
+
+
+}
+}
 let root = document.getElementById('root');
 if(root) {
   ReactDOM.render((
@@ -314,6 +393,7 @@ if(root) {
           <Route exact path='/signin' component={SignIn} />
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/signout' component={SignOut} />
+          <Route exact path='/addevent' component={AddEvent}/>
           <Route exact path='/' component={Home} />
           <Route exact path='/user/:id' component={UserDetails} />
         </Switch>

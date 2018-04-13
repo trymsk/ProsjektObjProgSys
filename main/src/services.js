@@ -8,7 +8,8 @@ function connect() {
     host: 'mysql.stud.iie.ntnu.no',
     user: 'g_oops_10',
     password: 'qtjxbwXr',
-    database: 'g_oops_10'
+    database: 'g_oops_10',
+    multipleStatements: true
   });
 
   // Connect to MySQL-server
@@ -29,13 +30,13 @@ function connect() {
 connect();
 
 class User {
-  id: number;
+  uId: number;
   username: string;
   firstName: string;
   lastName: string;
   password: string;
   telephone: string;
-  streetAdress: string;
+  uAdress: string;
   postalCode: string;
   place: string;
   ambulance: boolean;
@@ -62,7 +63,7 @@ class User {
 class UserService {
   signIn(username: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Bruker where B_Epost=? AND B_Passord=?', [username, password], (error, result) => {
+      connection.query('SELECT * FROM User where username=? AND password=?', [username, password], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -78,27 +79,27 @@ class UserService {
     });
   }
 
-  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, streetAdress: string, postalCode: string, place: string, ambulance: boolean, dLicense160: boolean, dLicenseBE: boolean, hkp: boolean, srw: boolean, sr: boolean, srs:boolean,
+  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, uAdress: string, postalCode: string, place: string, ambulance: boolean, dLicense160: boolean, dLicenseBE: boolean, hkp: boolean, srw: boolean, sr: boolean, srs:boolean,
     advFH:boolean, boat: boolean, vhf:boolean, vseaR:boolean, seaR: boolean, vlk: boolean, smDriver: boolean, smCourse: boolean, atv: boolean, dSensor: boolean): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO Bruker (B_Epost, B_Fornavn, B_Etternavn, B_Passord, B_Telefon, B_Adresse, B_Postnr, B_Poststed) VALUES (?, ?, ?, ?, ?, ?, ?, ?); INSERT INTO Kvalifikasjoner (K_Ambulansesertifisering, K_Førerkort160, K_FørerkortBE, K_Hjelpekorpsprøve, K_SøkRedningVinter, K_SøkRedning, K_SøkRedningSommer, K_VidereFørstehjelp, K_Båtførerprøven, K_VHF-sertifikat, K_VidereSjøredning, K_KvalSjøredning, K_Vaktlederkurs, K_FørerkortScooter, K_KvalScooter, K_ATV-kurs, K_Distriktsensorkurs) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' [username, firstName, lastName, password, telephone, streetAdress, postalCode, place, ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor], (error, result) => {
+      connection.query('INSERT INTO User (username, firstName, lastName, password, telephone, uAdress, postalCode, place) VALUES (?, ?, ?, ?, ?, ?, ?, ?); INSERT INTO Kvalifikasjoner (ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, firstName, lastName, password, telephone, uAdress, postalCode, place, ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor], (error, result) => {
         if(error) {
           reject(error);
           return;
         }
-        if(typeof(result.insertId) != 'number') {
+        if(typeof(result[0].insertId) != 'number') {
           reject(new Error('Could not read insertId'))
           return;
         }
 
         let user = new User();
-        user.id = result.insertId;
+        user.uId = result[0].insertId;
         user.username = username;
         user.firstName = firstName;
         user.lastName = lastName;
         user.password = password;
         user.telephone = telephone;
-        user.streetAdress = streetAdress;
+        user.uAdress = uAdress;
         user.postalCode = postalCode;
         user.place = place;
         user.ambulance = ambulance;
@@ -120,26 +121,26 @@ class UserService {
         user.dSensor = dSensor;
 
 
-        localStorage.setItem('signedInUser', JSON.stringify(user)); // Store User-object in browser
+        localStorage.setItem('signedInUser', JSON.stringify(user));
         resolve();
       });
     });
   }
 
   getSignedInUser(): ?User {
-    let item: ?string = localStorage.getItem('signedInUser'); // Get User-object from browser
+    let item: ?string = localStorage.getItem('signedInUser');
     if(!item) return null;
 
     return JSON.parse(item);
   }
 
   signOut() {
-    localStorage.removeItem('signedInUser'); // Delete User-object from browser
+    localStorage.removeItem('signedInUser');
   }
 
   getUser(id: number): Promise<User> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Bruker where B_Medlemsnummer=?', [id], (error, result) => {
+      connection.query('SELECT * FROM User where uId=?', [id], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -153,26 +154,65 @@ class UserService {
       });
     });
   }
-
 }
 
 class Event {
-  id: number;
+  eId: number;
   title: string;
   type: string;
   place: string;
-  placeAdress: string;
+  adress: string;
   date: string;
   time: string;
   contact: string;
   info: string;
-  }
+};
 
   class EventService {
+    addEvent(title:string, type:string, place:string, adress:string, date:string, time:string, contact:string, info:string):Promise<void>{
+      return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO Event(title, type, ePlace, eAdress, date, time, contact, info) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [title, type, place, adress, date, time, contact, info], (error, result) =>{
 
+          if(error) {
+            reject(error);
+            return;
+          }
+          if(typeof(result.insertId) != 'number') {
+            reject(new Error('Could not read insertId'))
+            return;
+          }
+
+          let event = new Event();
+          event.eId = result.insertId;
+          event.title = title;
+          event.type = type;
+          event.place= place;
+          event.adress = adress;
+          event.date = date;
+          event.time = time;
+          event.contact = contact;
+          event.info = info;
+
+          resolve();
+        });
+      });
+    };
+
+    getEvent(): Promise<Event[]> {
+      return new Promise((resolve, reject) =>{
+        connection.query('SELECT * FROM Event', [], (error, result) =>{
+          if(error){
+            reject(error);
+            return;
+          }
+
+          resolve(result);
+        })
+      })
+    }
   }
 
 
 let userService = new UserService();
 let eventService = new EventService();
-export { User, userService };
+export { User, userService, Event, eventService };
