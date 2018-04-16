@@ -258,13 +258,16 @@ class SignOut extends React.Component<{}> {
 
 class Home extends React.Component<{}> {
   Events: Event[] = [];
+
+  name: string = '';
+  email: string = '';
+
   render() {
     let listItems=[];
 
     for(let event of this.Events){
       listItems.push(
         <li key={event.eId}>{event.title}</li>
-
       );
     }
     return (
@@ -274,16 +277,25 @@ class Home extends React.Component<{}> {
         <ul>
         {listItems}
         </ul>
+        Tittel: <input type="text" ref="title" />
+        Date: <input type="date" ref="date" />
+        <h1>Profil</h1>
+        Navn: {this.name}
+        Epost: {this.email}
       </div>
     );
   }
-
   componentDidMount() {
+    this.refs.title.value="en tittel";
+    this.refs.date.valueAsDate = new Date();
     let signedInUser = userService.getSignedInUser();
     if(!signedInUser) {
       history.push('/signin');
       return;
     }
+    this.name = signedInUser.firstName;
+    this.email = signedInUser.username;
+    this.forceUpdate();
 
     if(menu) menu.forceUpdate();
 
@@ -294,6 +306,7 @@ class Home extends React.Component<{}> {
 
   }
 }
+
 
 class AddEvent extends React.Component<{}>{
   refs:{
@@ -342,46 +355,62 @@ class AddEvent extends React.Component<{}>{
   }
 }
 
-class UserDetails extends React.Component<{}>{
-  refs:{
-    uName: HTMLDivElement,
-    uAdress: HTMLDivElement,
-    uTelephone: HTMLDivElement,
-    uEmail: HTMLDivElement
+class UserDetails extends React.Component <{}> {
+  name: string = '';
+  telephone: string = '';
+  adress: string = '';
+  email: string = '';
 
-  }
-  render() {
-    return (
+  render(){
+    return(
       <div className='container'>
-
-        <div ref='uName'></div>
-        <hr></hr>
-
-        <label>Adresse</label><br/>
-        <div ref='uAdress'></div>
-
-        <label>Telefon</label><br/>
-        <div ref='uTelephone'></div>
-
-        <label>Epost></label>
-        <div ref='uEmail'></div>
-
+      <h1> Brukerprofil </h1>
+      Navn: {this.name} <br/>
+      Telefon: {this.telephone}<br/>
+      Adresse: {this.adress} <br/>
+      Epost: {this.email} <br/>
       </div>
-    );
-}
-componentDidMount(){
-  let signedInUser = userService.getSignedInUser();
-  if(!signedInUser) {
-    history.push('/signin');
-    return;
+    )
   }
-
-  if(menu) menu.forceUpdate();
-
-
-
+  componentDidMount() {
+    let signedInUser = userService.getSignedInUser();
+    if(!signedInUser) {
+      history.push('/signin');
+      return;
+    }
+    this.name = signedInUser.firstName;
+    this.telephone = signedInUser.telephone;
+    this.adress = signedInUser.uAdress + ' ' + signedInUser.postalCode + ' ' + signedInUser.uPlace;
+    this.email = signedInUser.username;
+    this.forceUpdate();
+    if(menu) menu.forceUpdate();
+  }
 }
+
+class EventDetails extends React.Component<{}>{
+  title: string = '';
+  type: string = '';
+  place: string = '';
+  adress: string = '';
+  date: string = '';
+  contact: string = '';
+  information: string = '';
+
+  render(){
+    return(
+      <div className = 'container'>
+      <h1>{title}</h1>
+      Type: {type} <br/>
+      Oppmøtested: {place} <br/>
+      Dato og tidspunkt: {date}<br/>
+      Ansvarlig: {contact} <br/>
+      Informasjon: {information} <br/>
+      </div>
+    )
+  }
 }
+
+
 let root = document.getElementById('root');
 if(root) {
   ReactDOM.render((
@@ -395,7 +424,8 @@ if(root) {
           <Route exact path='/signout' component={SignOut} />
           <Route exact path='/addevent' component={AddEvent}/>
           <Route exact path='/' component={Home} />
-          <Route exact path='/user/:id' component={UserDetails} />
+          <Route exact path='/user/:id' component={UserDetails}/>
+
         </Switch>
       </div>
     </HashRouter>

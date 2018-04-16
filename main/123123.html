@@ -1,0 +1,27 @@
+class UserDetails extends React.Component<{}>{
+  refs:{
+    title: HTMLDivElement,
+    uName: HTMLDivElement,
+    uAdress: HTMLDivElement,
+    uTelephone: HTMLDivElement,
+    uEmail: HTMLDivElement
+  }
+
+  render() {
+    let signedInUser = userService.getSignedInUser();
+
+    title.push(
+      signedInUser.firstName
+    );
+
+    return (
+      <div className='container'>
+        <h1 ref='title'></h1>
+      <hr></hr>
+        <div ref='uName'><div/>
+        <div ref='uAdress'><div/>
+        <div ref='uTelephone'><div/>
+      </div>
+    );
+  }
+}

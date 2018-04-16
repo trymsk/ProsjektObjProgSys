@@ -38,7 +38,7 @@ class User {
   telephone: string;
   uAdress: string;
   postalCode: string;
-  place: string;
+  uPlace: string;
   ambulance: boolean;
   dLicense160: boolean;
   dLicenseBE: boolean;
@@ -79,10 +79,10 @@ class UserService {
     });
   }
 
-  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, uAdress: string, postalCode: string, place: string, ambulance: boolean, dLicense160: boolean, dLicenseBE: boolean, hkp: boolean, srw: boolean, sr: boolean, srs:boolean,
+  signUp(username: string, firstName: string, lastName: string, password: string, telephone: string, uAdress: string, postalCode: string, uPlace: string, ambulance: boolean, dLicense160: boolean, dLicenseBE: boolean, hkp: boolean, srw: boolean, sr: boolean, srs:boolean,
     advFH:boolean, boat: boolean, vhf:boolean, vseaR:boolean, seaR: boolean, vlk: boolean, smDriver: boolean, smCourse: boolean, atv: boolean, dSensor: boolean): Promise<void> {
     return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO User (username, firstName, lastName, password, telephone, uAdress, postalCode, place) VALUES (?, ?, ?, ?, ?, ?, ?, ?); INSERT INTO Kvalifikasjoner (ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, firstName, lastName, password, telephone, uAdress, postalCode, place, ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor], (error, result) => {
+      connection.query('INSERT INTO User (username, firstName, lastName, password, telephone, uAdress, postalCode, uPlace) VALUES (?, ?, ?, ?, ?, ?, ?, ?); INSERT INTO Kvalifikasjoner (ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [username, firstName, lastName, password, telephone, uAdress, postalCode, uPlace, ambulance, dLicense160, dLicenseBE, hkp, srw, sr, srs, advFH, boat, vhf, vseaR, seaR, vlk, smDriver, smCourse, atv, dSensor], (error, result) => {
         if(error) {
           reject(error);
           return;
@@ -101,7 +101,7 @@ class UserService {
         user.telephone = telephone;
         user.uAdress = uAdress;
         user.postalCode = postalCode;
-        user.place = place;
+        user.uPlace = uPlace;
         user.ambulance = ambulance;
         user.dLicense160 = dLicense160;
         user.dLicenseBE = dLicenseBE;
