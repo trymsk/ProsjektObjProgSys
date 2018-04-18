@@ -267,11 +267,10 @@ class Home extends React.Component<{}> {
 
     for(let event of this.Events){
       listItems.push(
-        <li key={event.eId}>{event.title}</li>
+        <li key={event.eId}>
+        <Link to={'/event/' + event.eId}>{event.title}</Link>
+        </li>
         );
-        li.onclick = () =>{
-          history.push('/event/' + event.eId);
-        }
     }
     return (
       <div className='container'>
@@ -390,15 +389,9 @@ class UserDetails extends React.Component <{}> {
   }
 }
 
-class EventDetails extends React.Component<{}>{
-
-
+class EventPage extends React.Component<{match: {params: {id:number}}}>{
   render(){
-    return(
-      <div><p>dette er en test</p></div>
-    )
-  }
-  componentDidMount(){
+    return 'hei!';
   }
 }
 
@@ -417,7 +410,7 @@ if(root) {
           <Route exact path='/addevent' component={AddEvent}/>
           <Route exact path='/' component={Home} />
           <Route exact path='/user/:id' component={UserDetails}/>
-          <Route exact path='/event/:eId' component={EventDetails}/>
+          <Route exact path='/event/:eId' component={EventPage}/>
 
         </Switch>
       </div>
