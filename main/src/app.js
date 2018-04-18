@@ -268,7 +268,10 @@ class Home extends React.Component<{}> {
     for(let event of this.Events){
       listItems.push(
         <li key={event.eId}>{event.title}</li>
-      );
+        );
+        li.onclick = () =>{
+          history.push('/event/' + event.eId);
+        }
     }
     return (
       <div className='container'>
@@ -388,25 +391,14 @@ class UserDetails extends React.Component <{}> {
 }
 
 class EventDetails extends React.Component<{}>{
-  title: string = '';
-  type: string = '';
-  place: string = '';
-  adress: string = '';
-  date: string = '';
-  contact: string = '';
-  information: string = '';
+
 
   render(){
     return(
-      <div className = 'container'>
-      <h1>{title}</h1>
-      Type: {type} <br/>
-      Oppmøtested: {place} <br/>
-      Dato og tidspunkt: {date}<br/>
-      Ansvarlig: {contact} <br/>
-      Informasjon: {information} <br/>
-      </div>
+      <div><p>dette er en test</p></div>
     )
+  }
+  componentDidMount(){
   }
 }
 
@@ -425,6 +417,7 @@ if(root) {
           <Route exact path='/addevent' component={AddEvent}/>
           <Route exact path='/' component={Home} />
           <Route exact path='/user/:id' component={UserDetails}/>
+          <Route exact path='/event/:eId' component={EventDetails}/>
 
         </Switch>
       </div>

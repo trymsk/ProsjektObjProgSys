@@ -1,27 +1,9 @@
-class UserDetails extends React.Component<{}>{
-  refs:{
-    title: HTMLDivElement,
-    uName: HTMLDivElement,
-    uAdress: HTMLDivElement,
-    uTelephone: HTMLDivElement,
-    uEmail: HTMLDivElement
-  }
-
-  render() {
-    let signedInUser = userService.getSignedInUser();
-
-    title.push(
-      signedInUser.firstName
-    );
-
-    return (
-      <div className='container'>
-        <h1 ref='title'></h1>
-      <hr></hr>
-        <div ref='uName'><div/>
-        <div ref='uAdress'><div/>
-        <div ref='uTelephone'><div/>
-      </div>
-    );
-  }
-}
+arrangement.hentArrangementer((result) => {
+      for (let arr of result) {
+        let arrDiv = document.createElement("div");
+        arrDiv.className = "arrangementDiv";
+arrDiv.onclick = () => {
+          history.push("/bruker/{this.innloggetBruker.Medlemsnr}/arrangement/"+arr.arrid);
+          arrid = arr.arrid;
+          return arrid;
+        }
