@@ -239,7 +239,7 @@ class SignUp extends React.Component<{}> {
         history.push('/');
       }).catch((error: Error) => {
         console.log(error);
-        if(errorMessage) errorMessage.set("Could not create account");
+        if(errorMessage) errorMessage.set("Kunne ikke opprette bruker, vennligst kontakt en administrator");
       });
     };
   }
@@ -390,8 +390,9 @@ class UserDetails extends React.Component <{}> {
 }
 
 class EventPage extends React.Component<{match: {params: {id:number}}}>{
+
   render(){
-    return 'hei!';
+    return (<div>hei!</div>);
   }
 }
 
