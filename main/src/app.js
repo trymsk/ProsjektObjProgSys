@@ -58,6 +58,7 @@ class Menu extends React.Component<{}> {
           <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/addevent'>Legg til arrangement</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to='/roles'>Roller</NavLink>{' '}
 
         </div>
       );}else{
@@ -279,6 +280,7 @@ class Home extends React.Component<{}> {
         <Link to={'/event/' + event.eId}>{event.title}</Link>
         </li>
         );
+
     }
     return (
       <div className='container'>
@@ -409,15 +411,17 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
   info: string = '';
 
   render(){
-    return (<div className='container'>Tittel:{this.title} <br/>
-    Type: {this.type} <br/>
-    Sted: {this.place} <br/>
-    Adresse: {this.adress} <br/>
-    Dato og tidspunkt: {this.date + this.time} <br/>
-    Ansvarlig: {this.contact} <br/>
-    Informasjon: <div className='eventInfoDiv'> {this.info}</div><br/>
-    </div>);
-  }
+    return (
+    <div className='container'>
+      Tittel:{this.title} <br/>
+      Type: {this.type} <br/>
+      Sted: {this.place} <br/>
+      Adresse: {this.adress} <br/>
+      Dato og tidspunkt: {this.date + this.time} <br/>
+      Ansvarlig: {this.contact} <br/>
+      Informasjon: <div className='eventInfoDiv'> {this.info}</div> <br/>
+    </div>
+  );}
   componentDidMount() {
     eventService.getEvent(this.props.match.params.id).then(event => {
       this.id=event.eId;
@@ -433,6 +437,31 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
     });
   }
 
+}
+
+class Roles extends React.Component<{}>{
+  users: User[] = [];
+
+  render(){
+    let options=[];
+    for(let user of this.users) {
+      options.push(<option key={user.uId}>{user.firstName + ' ' + user.lastName}</option>);
+    }
+    return(
+      <div className='container'>
+        <select>
+          {options}
+        </select>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    userService.getMedic().then(users=> {
+      this.users=users;
+      this.forceUpdate();
+    })
+  }
 }
 
 
@@ -451,6 +480,7 @@ if(root) {
           <Route exact path='/' component={Home} />
           <Route exact path='/user/:id' component={UserDetails}/>
           <Route exact path='/event/:id' component={EventPage}/>
+          <Route exact path='/roles' component={Roles}/>
 
         </Switch>
       </div>

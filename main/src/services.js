@@ -154,6 +154,18 @@ class UserService {
       });
     });
   }
+
+  getMedic():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve(result);
+      });
+    });
+  }
 }
 
 class Event {
