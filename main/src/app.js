@@ -51,6 +51,7 @@ class Menu extends React.Component<{}> {
   render() {
     let signedInUser = userService.getSignedInUser();
     if(signedInUser) {
+      if(signedInUser.uId == 36){
       return (
         <div id="NavLink">
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
@@ -59,7 +60,15 @@ class Menu extends React.Component<{}> {
           <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
 
         </div>
-      );
+      );}else{
+        return (
+          <div id="NavLink">
+            <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
+            <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
+            <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
+
+          </div>
+      );}
     }
     return (<div>  </div>
     );
@@ -328,7 +337,7 @@ class AddEvent extends React.Component<{}>{
       <input type='text' ref='eTitle'/> <br/>
       <label>Type</label>
       <input type='text' ref='eType'/> <br/>
-      <label>Plass</label>
+      <label>Sted</label>
       <input type='text' ref='ePlace'/> <br/>
       <label>Adresse</label>
       <input type='text' ref='eAdress'/> <br/>
