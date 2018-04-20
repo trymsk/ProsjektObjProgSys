@@ -55,17 +55,13 @@ class Menu extends React.Component<{}> {
         <div id="NavLink">
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/addevent'> Legg til arrangement</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/signout'>Logg ut</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to='/addevent'>Legg til arrangement</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
 
         </div>
       );
     }
-    return (
-      <div>
-        <NavLink activeStyle={{color: 'green'}} to='/signin'>Sign In</NavLink>{' '}
-        <NavLink activeStyle={{color: 'green'}} to='/signup'>Sign Up</NavLink>
-      </div>
+    return (<div>  </div>
     );
   }
 
@@ -90,9 +86,6 @@ class SignIn extends React.Component<{}> {
   render() {
     return (
       <div className="LogInBox">
-          <div className="icon-bar">
-              <a href="#" id="admin"><i className="fab fa-angular"></i></a>
-          </div>
         <div className="imgcontainer">
           <img src="Bilder\red_cross_logo.png" alt="Logo" className="Logo"></img>
         </div>
@@ -150,7 +143,8 @@ class SignUp extends React.Component<{}> {
     signUpSMDriver: HTMLInputElement,
     signUpSMKurs: HTMLInputElement,
     signUpATV: HTMLInputElement,
-    signUpDSensor: HTMLInputElement
+    signUpDSensor: HTMLInputElement,
+    backButton: HTMLButtonElement
 
 
   }
@@ -225,6 +219,7 @@ class SignUp extends React.Component<{}> {
           <input type='checkbox' ref='signUpDSensor'/>Distriktsensorkurs<br/>
 
           <button ref='signUpButton'>Registrer</button>
+          <button ref='backButton'>Tilbake</button>
           </div>
         </div>
     );
@@ -241,6 +236,10 @@ class SignUp extends React.Component<{}> {
         console.log(error);
         if(errorMessage) errorMessage.set("Kunne ikke opprette bruker, vennligst kontakt en administrator");
       });
+    };
+
+    this.refs.backButton.onclick = () => {
+      history.push('/signIn');
     };
   }
 }
@@ -276,7 +275,7 @@ class Home extends React.Component<{}> {
       <div className='container'>
       <h1>Arrangementer</h1>
       <hr></hr>
-        <ul>
+        <ul id='eventList'>
         {listItems}
         </ul>
         Tittel: <input type="text" ref="title" />
@@ -301,7 +300,7 @@ class Home extends React.Component<{}> {
 
     if(menu) menu.forceUpdate();
 
-    eventService.getEvent().then((Events) => {
+    eventService.getEvents().then((Events) => {
       this.Events = Events;
       this.forceUpdate();
     })
@@ -390,10 +389,41 @@ class UserDetails extends React.Component <{}> {
 }
 
 class EventPage extends React.Component<{match: {params: {id:number}}}>{
+  id: number;
+  title: string = '';
+  type: string = '';
+  place: string = '';
+  adress: string = '';
+  date: string = '';
+  time: string = '';
+  contact: string = '';
+  info: string = '';
 
   render(){
-    return (<div>hei!</div>);
+    return (<div className='container'>Tittel:{this.title} <br/>
+    Type: {this.type} <br/>
+    Sted: {this.place} <br/>
+    Adresse: {this.adress} <br/>
+    Dato og tidspunkt: {this.date + this.time} <br/>
+    Ansvarlig: {this.contact} <br/>
+    Informasjon: <div className='eventInfoDiv'> {this.info}</div><br/>
+    </div>);
   }
+  componentDidMount() {
+    eventService.getEvent(this.props.match.params.id).then(event => {
+      this.id=event.eId;
+      this.title=event.title;
+      this.type = event.type;
+      this.place = event.place;
+      this.adress = event.adress;
+      this.date = event.date;
+      this.time = event.time;
+      this.contact = event.contact;
+      this.info = event.info;
+      this.forceUpdate();
+    });
+  }
+
 }
 
 
@@ -411,7 +441,7 @@ if(root) {
           <Route exact path='/addevent' component={AddEvent}/>
           <Route exact path='/' component={Home} />
           <Route exact path='/user/:id' component={UserDetails}/>
-          <Route exact path='/event/:eId' component={EventPage}/>
+          <Route exact path='/event/:id' component={EventPage}/>
 
         </Switch>
       </div>

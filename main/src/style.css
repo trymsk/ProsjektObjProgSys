@@ -1,27 +1,28 @@
 
-.icon-bar {
+#NavLink {
     width: 100%; /* Full-width */
     background-color: #8D8C8F; /* Dark-grey background */
     overflow: auto; /* Overflow due to float */
+    color: black;
 }
 
-.icon-bar a {
-    float: right;
+#NavLink i {
+
     text-align: center; /* Center-align text */
-    width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
     padding: 12px 0; /* Some top and bottom padding */
     transition: all 0.3s ease;
     color: white;
     font-size: 40px;
 }
 
-.icon-bar a:hover {
+#NavLink NavLink:hover {
     color: #000; /*Farge når musen er over*/
 }
 
-
 .LogInBox {
-  margin: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 50px;
   background-color: white;
   height:500px;
   width:auto;
@@ -64,6 +65,7 @@ button:hover {
 .imgcontainer {
     text-align: center;
     margin: 24px 0 12px 0;
+    padding-top: 50px;
 }
 
 .Logo {
@@ -167,14 +169,30 @@ hr {
 }
 
 #eventList{
-  width: 40%;
+  width: 30%;
 
-  background-color: white;
+
+}
+.eventInfoDiv{
+  border: 1px solid black;
+  width:50%;
+  height: 300px;
 }
 
-#eventList.ul{
-  list-style-type: square;
+#eventList li{
+  list-style-position:inside;
+  border: 1px solid black;
+  height: 50px;
+  text-align: left;
+  padding-top: 18px;
+  font-size: 12px;
 }
+
+#eventList li :hover{
+color: #000; /*Farge når musen er over*/
+}
+
+
 
 #Navlink{
   background-color: white;

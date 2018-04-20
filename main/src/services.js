@@ -157,6 +157,7 @@ class UserService {
 }
 
 class Event {
+
   eId: number;
   title: string;
   type: string;
@@ -166,12 +167,13 @@ class Event {
   time: string;
   contact: string;
   info: string;
+
 };
 
   class EventService {
     addEvent(title:string, type:string, place:string, adress:string, date:string, time:string, contact:string, info:string):Promise<void>{
       return new Promise((resolve, reject) => {
-        connection.query('INSERT INTO Event(title, type, ePlace, eAdress, date, time, contact, info) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [title, type, place, adress, date, time, contact, info], (error, result) =>{
+        connection.query('INSERT INTO Event(title, type, place, adress, date, time, contact, info) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [title, type, place, adress, date, time, contact, info], (error, result) =>{
 
           if(error) {
             reject(error);
@@ -198,7 +200,7 @@ class Event {
       });
     };
 
-    getEvent(): Promise<Event[]> {
+    getEvents(): Promise<Event[]> {
       return new Promise((resolve, reject) =>{
         connection.query('SELECT * FROM Event', [], (error, result) =>{
           if(error){
@@ -207,6 +209,19 @@ class Event {
           }
 
           resolve(result);
+        })
+      })
+    }
+
+    getEvent(id: number): Promise<Event> {
+      return new Promise((resolve, reject) =>{
+        connection.query('SELECT * FROM Event where eId=?', [id], (error, result) =>{
+          if(error){
+            reject(error);
+            return;
+          }
+
+          resolve(result[0]);
         })
       })
     }
