@@ -166,7 +166,152 @@ class UserService {
       });
     });
   }
+  getAmbulanceHelp():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getAmbulanceDriver():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND dLicense160=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getAmbulance3Man():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND advFH=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getBSkipper():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND boat=1 AND vhf=1 AND vseaR=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getBHelper():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND seaR=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getBCrew():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND seaR=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getLeader():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND vlk=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getSMHelper():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND srw=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getSMDriver():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND srw=1 AND smCourse=1 AND smDriver=1 AND dLicenseBE=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getSM3Man():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND advFH=1 AND sr=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getATVDriver():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND srs=1 AND atv=1 AND dLicenseBE=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
+  getDSensor():Promise<User[]>{
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND dSensor=1',[],(error, result) => {
+        if(error){
+          reject(error);
+          return;
+        }
+        resolve
+      });
+    });
+  }
+
 }
+
 
 class Event {
 
