@@ -216,7 +216,7 @@ class UserService {
 
   getBHelper():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND seaR=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND seaR=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -228,7 +228,7 @@ class UserService {
 
   getBCrew():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND seaR=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND seaR=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -240,7 +240,7 @@ class UserService {
 
   getLeader():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND vlk=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND vlk=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -252,7 +252,7 @@ class UserService {
 
   getSMHelper():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND srw=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND ambulance=1 AND srw=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -264,7 +264,7 @@ class UserService {
 
   getSMDriver():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND srw=1 AND smCourse=1 AND smDriver=1 AND dLicenseBE=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND srw=1 AND smCourse=1 AND smDriver=1 AND dLicenseBE=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -276,7 +276,7 @@ class UserService {
 
   getSM3Man():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND advFH=1 AND sr=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND advFH=1 AND sr=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -288,7 +288,7 @@ class UserService {
 
   getATVDriver():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND srs=1 AND atv=1 AND dLicenseBE=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND srs=1 AND atv=1 AND dLicenseBE=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
@@ -300,7 +300,7 @@ class UserService {
 
   getDSensor():Promise<User[]>{
     return new Promise((resolve, reject) => {
-      connection.query('SELECT Qualifications.uId, username FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND dSensor=1',[],(error, result) => {
+      connection.query('SELECT Qualifications.uId, firstName, lastName FROM Qualifications INNER JOIN User WHERE User.uId=Qualifications.uId AND hkp = 1 AND dSensor=1',[],(error, result) => {
         if(error){
           reject(error);
           return;
