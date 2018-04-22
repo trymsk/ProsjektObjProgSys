@@ -173,7 +173,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -185,7 +185,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -197,7 +197,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -209,7 +209,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -221,7 +221,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -233,7 +233,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -245,7 +245,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -257,7 +257,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -269,7 +269,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -281,7 +281,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -293,7 +293,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }
@@ -305,7 +305,7 @@ class UserService {
           reject(error);
           return;
         }
-        resolve
+        resolve(result);
       });
     });
   }

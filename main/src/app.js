@@ -51,14 +51,14 @@ class Menu extends React.Component<{}> {
   render() {
     let signedInUser = userService.getSignedInUser();
     if(signedInUser) {
+      //adminbrukeren har uId 36
       if(signedInUser.uId == 36){
       return (
         <div id="NavLink">
           <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/addevent'>Legg til arrangement</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
           <NavLink activeStyle={{color: 'green'}} to='/roles'>Roller</NavLink>{' '}
+          <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
 
         </div>
       );}else{
@@ -400,6 +400,10 @@ class UserDetails extends React.Component <{}> {
 }
 
 class EventPage extends React.Component<{match: {params: {id:number}}}>{
+  refs:{
+    backButton: HTMLButtonElement
+  }
+
   id: number;
   title: string = '';
   type: string = '';
@@ -420,6 +424,8 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
       Dato og tidspunkt: {this.date + this.time} <br/>
       Ansvarlig: {this.contact} <br/>
       Informasjon: <div className='eventInfoDiv'> {this.info}</div> <br/>
+
+      <button ref='backButton'>Tilbake</button>
     </div>
   );}
   componentDidMount() {
@@ -435,32 +441,234 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
       this.info = event.info;
       this.forceUpdate();
     });
+
+    this.refs.backButton.onclick = () => {
+      history.push('/');
+    };
   }
 
 }
 
 class Roles extends React.Component<{}>{
-  users: User[] = [];
+  medUsers: User[] = [];
+  ambulanceDriverUsers: User[] = [];
+  ambulanceHelpUsers: User[] = [];
+  ambulance3ManUsers: User[] = [];
+  bSkipperUsers: User[] = [];
+  bHelpUsers: User[] = [];
+  bCrewUsers: User[] = [];
+  leaderUsers: User[] = [];
+  smDriverUsers: User[] = [];
+  smHelpUsers: User[] = [];
+  sm3ManUsers: User[] = [];
+  atvDriverUsers: User[] = [];
+  dSensorUsers: User[] = [];
+
 
   render(){
-    let options=[];
-    for(let user of this.users) {
-      options.push(<option key={user.uId}>{user.firstName + ' ' + user.lastName}</option>);
+    let medicList = [];
+    let ambulanceDriverList = [];
+    let ambulanceHelpList = [];
+    let ambulance3ManList = [];
+    let bSkipperList = [];
+    let bHelpList =  [];
+    let bCrewList = [];
+    let leaderList = [];
+    let smDriverList = [];
+    let smHelpList = [];
+    let sm3ManList = [];
+    let atvDriverList = [];
+    let dSensorList = [];
+
+    for(let user of this.medUsers) {
+      medicList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
     }
+
+    for(let user of this.ambulanceDriverUsers) {
+      ambulanceDriverList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.ambulanceHelpUsers) {
+      ambulanceHelpList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.ambulance3ManUsers) {
+      ambulance3ManList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.bSkipperUsers) {
+      bSkipperList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.bHelpUsers) {
+      bHelpList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.bCrewUsers) {
+      bCrewList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.leaderUsers) {
+      leaderList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.smDriverUsers) {
+      smDriverList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.smHelpUsers) {
+      smHelpList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.sm3ManUsers) {
+      sm3ManList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.atvDriverUsers) {
+      atvDriverList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
+    for(let user of this.dSensorUsers) {
+      dSensorList.push(<li key={user.uId}>{user.firstName + ' ' + user.lastName}</li>);
+    }
+
     return(
       <div className='container'>
-        <select>
-          {options}
-        </select>
+      <label> Sanitet </label>
+        <ul>
+          {medicList}
+        </ul>
+
+        <label> Ambulansesjåfører </label>
+        <ul>
+          {ambulanceDriverList}
+        </ul>
+
+        <label> Ambulansemedhjelper </label>
+        <ul>
+          {ambulanceHelpList}
+        </ul>
+
+        <label> Ambulanse tredjemann </label>
+        <ul>
+        {ambulance3ManList}
+        </ul>
+
+        <label> Båtfører </label>
+        <ul>
+        {bSkipperList}
+        </ul>
+
+        <label> Båtmedhjelper </label>
+        <ul>
+        {bHelpList}
+        </ul>
+
+        <label> Båtmannskap </label>
+        <ul>
+        {bCrewList}
+        </ul>
+
+        <label> Vaktleder </label>
+        <ul>
+        {leaderList}
+        </ul>
+
+        <label> Snøscooterfører </label>
+        <ul>
+        {smDriverList}
+        </ul>
+
+        <label> Snøscootermedhjelper </label>
+        <ul>
+        {smHelpList}
+        </ul>
+
+        <label> Snøscooter tredjemann </label>
+        <ul>
+        {sm3ManList}
+        </ul>
+
+        <label> ATV-fører </label>
+        <ul>
+        {atvDriverList}
+        </ul>
+
+        <label> Distriktsensor </label>
+        <ul>
+        {dSensorList}
+        </ul>
+
       </div>
     );
   }
 
   componentDidMount() {
-    userService.getMedic().then(users=> {
-      this.users=users;
+    userService.getMedic().then(medUsers=> {
+      this.medUsers=medUsers;
+      this.forceUpdate();
+    });
+
+    userService.getAmbulanceDriver().then(ambulanceDriverUsers=> {
+      this.ambulanceDriverUsers=ambulanceDriverUsers;
+      this.forceUpdate();
+    });
+
+    userService.getAmbulanceHelp().then(ambulanceHelpUsers=> {
+      this.ambulanceHelpUsers=ambulanceHelpUsers;
+      this.forceUpdate();
+    });
+
+    userService.getAmbulance3Man().then(ambulance3ManUsers=> {
+      this.ambulance3ManUsers=ambulance3ManUsers;
+      this.forceUpdate();
+    });
+
+    userService.getBSkipper().then(bSkipperUsers=> {
+      this.bSkipperUsers=bSkipperUsers;
+      this.forceUpdate();
+    });
+
+    userService.getBHelper().then(bHelpUsers => {
+      this.bHelpUsers=bHelpUsers;
+      this.forceUpdate();
+    });
+
+    userService.getBCrew().then(bCrewUsers => {
+      this.bCrewUsers=bCrewUsers;
+      this.forceUpdate();
+    });
+
+    userService.getLeader().then(leaderUsers => {
+      this.leaderUsers = leaderUsers;
+      this.forceUpdate();
+    });
+
+    userService.getSMDriver().then(smDriverUsers => {
+      this.smDriverUsers = smDriverUsers;
+      this.forceUpdate();
+    });
+
+    userService.getSMHelper().then(smHelpUsers =>{
+      this.smHelpUsers =smHelpUsers;
+      this.forceUpdate();
+    });
+
+    userService.getSM3Man().then(sm3ManUsers =>{
+      this.sm3ManUsers = sm3ManUsers;
+      this.forceUpdate();
+    });
+
+    userService.getATVDriver().then(atvDriverUsers=>{
+      this.atvDriverUsers = atvDriverUsers;
+      this.forceUpdate();
+    });
+
+    userService.getDSensor().then(dSensorUsers=>{
+      this.dSensorUsers = dSensorUsers;
       this.forceUpdate();
     })
+
   }
 }
 
