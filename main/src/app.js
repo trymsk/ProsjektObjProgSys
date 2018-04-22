@@ -67,7 +67,6 @@ class Menu extends React.Component<{}> {
             <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
             <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
             <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
-
           </div>
       );}
     }
@@ -268,46 +267,35 @@ class SignOut extends React.Component<{}> {
 class Home extends React.Component<{}> {
   Events: Event[] = [];
 
-  name: string = '';
-  email: string = '';
-
   render() {
     let listItems=[];
 
     for(let event of this.Events){
       listItems.push(
         <li key={event.eId}>
-        <Link to={'/event/' + event.eId}>{event.title}</Link>
+          <Link to={'/event/' + event.eId}>{event.title}</Link>
         </li>
         );
 
     }
     return (
       <div className='container'>
-      <h1>Arrangementer</h1>
-      <hr></hr>
-        <ul id='eventList'>
-        {listItems}
-        </ul>
-        Tittel: <input type="text" ref="title" />
-        Date: <input type="date" ref="date" />
-        <h1>Profil</h1>
-        Navn: {this.name}
-        Epost: {this.email}
+        <h1>Arrangementer</h1>
+        <hr></hr>
+          <ul id='eventList'>
+            {listItems}
+          </ul>
       </div>
+
     );
   }
   componentDidMount() {
-    this.refs.title.value="en tittel";
-    this.refs.date.valueAsDate = new Date();
     let signedInUser = userService.getSignedInUser();
     if(!signedInUser) {
       history.push('/signin');
       return;
     }
-    this.name = signedInUser.firstName;
-    this.email = signedInUser.username;
-    this.forceUpdate();
+      this.forceUpdate();
 
     if(menu) menu.forceUpdate();
 
@@ -417,11 +405,13 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
   render(){
     return (
     <div className='container'>
-      Tittel:{this.title} <br/>
+      <h1>{this.title}</h1>
+      <hr></hr>
       Type: {this.type} <br/>
       Sted: {this.place} <br/>
       Adresse: {this.adress} <br/>
-      Dato og tidspunkt: {this.date + this.time} <br/>
+      Dato: {this.date} <br/>
+      Tidspunkt: {this.time} <br/>
       Ansvarlig: {this.contact} <br/>
       Informasjon: <div className='eventInfoDiv'> {this.info}</div> <br/>
 

@@ -372,7 +372,7 @@ class Event {
 
     getEvent(id: number): Promise<Event> {
       return new Promise((resolve, reject) =>{
-        connection.query('SELECT * FROM Event where eId=?', [id], (error, result) =>{
+        connection.query('SELECT contact, adress, place, type, title, info, eId, DATE_FORMAT(date, "%W %m/%d/%Y") AS date, TIME_FORMAT(time, "%H:%i") AS time FROM Event where eId=?', [id], (error, result) =>{
           if(error){
             reject(error);
             return;

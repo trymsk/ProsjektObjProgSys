@@ -171,8 +171,8 @@ hr {
 #eventList{
   width: 30%;
 
-
 }
+
 .eventInfoDiv{
   border: 1px solid black;
   width:50%;
@@ -188,7 +188,7 @@ hr {
   font-size: 12px;
 }
 
-#eventList li :hover{
+#eventList :hover{
 color: #000; /*Farge når musen er over*/
 }
 
