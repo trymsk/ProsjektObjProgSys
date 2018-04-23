@@ -3,20 +3,13 @@
     width: 100%; /* Full-width */
     background-color: #8D8C8F; /* Dark-grey background */
     overflow: auto; /* Overflow due to float */
-    color: black;
 }
 
-#NavLink i {
-
-    text-align: center; /* Center-align text */
-    padding: 12px 0; /* Some top and bottom padding */
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 40px;
+.navlink{
+  color: black;
 }
-
-#NavLink NavLink:hover {
-    color: #000; /*Farge når musen er over*/
+.navlink:hover {
+    color: red; /*Farge når musen er over*/
 }
 
 .LogInBox {
@@ -26,6 +19,10 @@
   background-color: white;
   height:500px;
   width:auto;
+  padding: 16px;
+  background-color: white;
+  font-size: 12px;
+
 }
 .psw{
   font-family: sans-serif;
@@ -35,17 +32,24 @@
   position: absolute;
   top: 75%;
   left:30%;
+  border: solid 1px black;
+  padding:10px;
 }
 
 #closeBtn {
   position: absolute;
-  left: 100%;
-  top:0%;
+  top: 0px;
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  background-color: #8D8C8F;
+  margin-left: 10px;
+  transition: all 0.3s ease
 }
 
 
 /* stil for alle knapper */
-button {
+.LogInBox button {
     background-color: #8D8C8F;
     color: white;
     padding: 14px 20px;
@@ -56,12 +60,44 @@ button {
     transition: all 0.3s ease
 }
 
-/* Add a hover effect for buttons */
+.container button {
+  background-color: #8D8C8F;
+  color: white;
+  padding: 14px 0px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  transition: all 0.3s ease
+}
+
+.table button {
+  background-color: #8D8C8F;
+  color: white;
+  padding: 14px 0px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  transition: all 0.3s ease
+}
+
 button:hover {
     background-color: black;
 }
 
-/* Center the avatar image inside this container */
+#interestButton, #signUpButton{
+  background-color: green;
+  transition: all 0.3s ease
+}
+
+#interestButton:hover, #signUpButton:hover, #closeBtn:hover{
+  background-color: black;
+
+}
+
+
+
 .imgcontainer {
     text-align: center;
     margin: 24px 0 12px 0;
@@ -84,6 +120,7 @@ img.avatar {
     background-color: white;
     font-size: 12px;
 }
+
 
 .table{
   padding: 16px;
@@ -150,15 +187,6 @@ hr {
   margin-bottom: 25px;
 }
 
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
 
 
 /* Clear floats */
@@ -186,11 +214,13 @@ hr {
   text-align: left;
   padding-top: 18px;
   font-size: 12px;
+  color: black;
 }
 
-#eventList :hover{
+#eventList li:hover{
 color: #000; /*Farge når musen er over*/
 }
+
 
 
 

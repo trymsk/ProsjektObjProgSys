@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom';
 import { Link, NavLink, HashRouter, Switch, Route } from 'react-router-dom';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
-import {User, userService, Event, eventService} from './services';
+import {User, userService, Event, eventService, Interest, interestService} from './services';
 
+//Objekt for å hente og vise errormeldinger
 class ErrorMessage extends React.Component<{}> {
   refs: {
     closeButton: HTMLButtonElement
@@ -14,7 +15,7 @@ class ErrorMessage extends React.Component<{}> {
   message = '';
 
   render() {
-    // Only show when this.message is not empty
+    // Bare vis denne meldingen hvis den ikke er tom
     let displayValue;
     if(this.message=='') displayValue = 'none';
     else displayValue = 'inline';
@@ -55,18 +56,17 @@ class Menu extends React.Component<{}> {
       if(signedInUser.uId == 36){
       return (
         <div id="NavLink">
-          <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/addevent'>Legg til arrangement</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/roles'>Roller</NavLink>{' '}
-          <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
-
+          <NavLink activeStyle={{color: 'red'}} exact to='/' className='navlink'>Hjem</NavLink>{' '}
+          <NavLink activeStyle={{color: 'red'}} to='/addevent' className='navlink'>Legg til arrangement</NavLink>{' '}
+          <NavLink activeStyle={{color: 'red'}} to='/roles' className='navlink'>Roller</NavLink>{' '}
+          <NavLink activeStyle={{color: 'red'}} to='/signout' className='navlink'> Logg Ut </NavLink>{' '}
         </div>
       );}else{
         return (
           <div id="NavLink">
-            <NavLink activeStyle={{color: 'green'}} exact to='/'>Hjem</NavLink>{' '}
-            <NavLink activeStyle={{color: 'green'}} to={'/user/' + signedInUser.uId}>{signedInUser.firstName}</NavLink>{' '}
-            <NavLink activeStyle={{color: 'green'}} to='/signout'> Logg Ut </NavLink>{' '}
+            <NavLink activeStyle={{color: 'red'}} exact to='/' className='navlink'>Hjem</NavLink>{' '}
+            <NavLink activeStyle={{color: 'red'}} to={'/user/' + signedInUser.uId} className='navlink'>{signedInUser.firstName}</NavLink>{' '}
+            <NavLink activeStyle={{color: 'red'}} to='/signout' className='navlink'> Logg Ut </NavLink>{' '}
           </div>
       );}
     }
@@ -98,12 +98,12 @@ class SignIn extends React.Component<{}> {
         <div className="imgcontainer">
           <img src="Bilder\red_cross_logo.png" alt="Logo" className="Logo"></img>
         </div>
-        <div className="container">
+
           <input type="text" placeholder="E-post" id="uname" ref ='signInUsername'/>
           <input type="password" placeholder="Passord" id="psw" ref ='signInPassword'/>
           <button ref='signInButton'>Login</button>
         <button ref='signUpButton' id="regBtn">Registrer ny bruker</button>
-        </div>
+
       </div>
     );
   }
@@ -163,7 +163,7 @@ class SignUp extends React.Component<{}> {
       <div className='row'>
         <div className="table">
           <h1>Registrer ny bruker</h1>
-          <p>Vennligst fyll ut registreringsskjemaet</p>
+          <p>Vennligst fyll ut registreringsskjemaet, alle felt er påkrevd.</p>
           <hr></hr>
           <label>Epost (brukernavn)</label>
           <input type="text" placeholder="eksempel@gmail.com" ref='signUpUsername'required/>
@@ -227,7 +227,7 @@ class SignUp extends React.Component<{}> {
 
           <input type='checkbox' ref='signUpDSensor'/>Distriktsensorkurs<br/>
 
-          <button ref='signUpButton'>Registrer</button>
+          <button ref='signUpButton' id='signUpButton'>Registrer</button>
           <button ref='backButton'>Tilbake</button>
           </div>
         </div>
@@ -389,9 +389,12 @@ class UserDetails extends React.Component <{}> {
 
 class EventPage extends React.Component<{match: {params: {id:number}}}>{
   refs:{
-    backButton: HTMLButtonElement
+    backButton: HTMLButtonElement,
+    interestButton: HTMLButtonElement,
+    interestedButton: HTMLButtonElement,
   }
-
+  eId: number;
+  uId: number;
   id: number;
   title: string = '';
   type: string = '';
@@ -403,6 +406,7 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
   info: string = '';
 
   render(){
+    if(this.uId == 36){
     return (
     <div className='container'>
       <h1>{this.title}</h1>
@@ -414,10 +418,26 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
       Tidspunkt: {this.time} <br/>
       Ansvarlig: {this.contact} <br/>
       Informasjon: <div className='eventInfoDiv'> {this.info}</div> <br/>
-
+      <button ref='interestedButton' id='interestedButton'>Interesserte brukere</button>
       <button ref='backButton'>Tilbake</button>
     </div>
-  );}
+  );}else{
+    return (
+    <div className='container'>
+      <h1>{this.title}</h1>
+      <hr></hr>
+      Type: {this.type} <br/>
+      Sted: {this.place} <br/>
+      Adresse: {this.adress} <br/>
+      Dato: {this.date} <br/>
+      Tidspunkt: {this.time} <br/>
+      Ansvarlig: {this.contact} <br/>
+      Informasjon: <div className='eventInfoDiv'> {this.info}</div> <br/>
+      <button ref='interestButton' id='interestButton'>Meld interesse</button>
+      <button ref='backButton'>Tilbake</button>
+    </div>
+    );}
+  }
   componentDidMount() {
     eventService.getEvent(this.props.match.params.id).then(event => {
       this.id=event.eId;
@@ -432,9 +452,23 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
       this.forceUpdate();
     });
 
+    let signedInUser = userService.getSignedInUser();
+    if(!signedInUser) {
+      history.push('/signin');
+      return;
+    }
+    this.uId = signedInUser.uId;
     this.refs.backButton.onclick = () => {
       history.push('/');
     };
+
+    this.refs.interestButton.onclick = () => {
+      interestService.reportInterest(this.props.match.params.id, signedInUser.uId).then(() => {
+        window.alert('Interesse meldt')}).catch((error: Error) => {
+        console.log(error);
+        if(errorMessage) errorMessage.set("Du har allerede meldt interesse for dette arrangmentet");
+      });
+    }
   }
 
 }
