@@ -439,6 +439,18 @@ class Event {
       });
     });
   }
+
+  getInterestReport(id:number): Promise<User[]> {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT firstname, lastname FROM User JOIN Interest WHERE User.uId=Interest.uId AND eId=?'), [id], (error, result) => {
+        if(error) {
+          reject(error);
+          return;
+        }
+        resolve(result);
+      }
+    });
+  }
 }
 
 

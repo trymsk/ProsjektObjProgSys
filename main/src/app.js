@@ -47,7 +47,7 @@ class ErrorMessage extends React.Component<{}> {
 }
 let errorMessage: ?ErrorMessage;
 
-
+//Komponenten for navigeringsmeny
 class Menu extends React.Component<{}> {
   render() {
     let signedInUser = userService.getSignedInUser();
@@ -84,6 +84,7 @@ class Menu extends React.Component<{}> {
 }
 let menu: ?Menu;
 
+//Komponent for å logge inn i systemet
 class SignIn extends React.Component<{}> {
   refs: {
     signInUsername: HTMLInputElement,
@@ -125,6 +126,7 @@ class SignIn extends React.Component<{}> {
   }
 }
 
+//komponent for registrering
 class SignUp extends React.Component<{}> {
   refs: {
     signUpUsername: HTMLInputElement,
@@ -253,6 +255,7 @@ class SignUp extends React.Component<{}> {
   }
 }
 
+//Komponent for å logge ut
 class SignOut extends React.Component<{}> {
   render() {
     return (<div />);
@@ -264,6 +267,7 @@ class SignOut extends React.Component<{}> {
   }
 }
 
+//Hjemskjerm med oversikt over alle arrangment
 class Home extends React.Component<{}> {
   Events: Event[] = [];
 
@@ -307,7 +311,7 @@ class Home extends React.Component<{}> {
   }
 }
 
-
+//Komponent med funksjonalitet for å legge til arrangement for admin
 class AddEvent extends React.Component<{}>{
   refs:{
     eTitle: HTMLInputElement,
@@ -355,6 +359,7 @@ class AddEvent extends React.Component<{}>{
   }
 }
 
+//Komponent for brukerprofil med personalia
 class UserDetails extends React.Component <{}> {
   name: string = '';
   telephone: string = '';
@@ -387,6 +392,7 @@ class UserDetails extends React.Component <{}> {
   }
 }
 
+//Komponent for å se informasjon om de forskjellige arrangementene og melde interesse, videre arbeid for denne komponenten inkluderer oversikt over hvilke roller som kreves og hvem som er oppmeldt
 class EventPage extends React.Component<{match: {params: {id:number}}}>{
   refs:{
     backButton: HTMLButtonElement,
@@ -406,22 +412,6 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
   info: string = '';
 
   render(){
-    if(this.uId == 36){
-    return (
-    <div className='container'>
-      <h1>{this.title}</h1>
-      <hr></hr>
-      Type: {this.type} <br/>
-      Sted: {this.place} <br/>
-      Adresse: {this.adress} <br/>
-      Dato: {this.date} <br/>
-      Tidspunkt: {this.time} <br/>
-      Ansvarlig: {this.contact} <br/>
-      Informasjon: <div className='eventInfoDiv'> {this.info}</div> <br/>
-      <button ref='interestedButton' id='interestedButton'>Interesserte brukere</button>
-      <button ref='backButton'>Tilbake</button>
-    </div>
-  );}else{
     return (
     <div className='container'>
       <h1>{this.title}</h1>
@@ -436,7 +426,7 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
       <button ref='interestButton' id='interestButton'>Meld interesse</button>
       <button ref='backButton'>Tilbake</button>
     </div>
-    );}
+    )
   }
   componentDidMount() {
     eventService.getEvent(this.props.match.params.id).then(event => {
@@ -473,6 +463,7 @@ class EventPage extends React.Component<{match: {params: {id:number}}}>{
 
 }
 
+//Komponent for å se hvem som er kvalifisert til å fylle ut de forskjellige rollene
 class Roles extends React.Component<{}>{
   medUsers: User[] = [];
   ambulanceDriverUsers: User[] = [];
@@ -697,6 +688,7 @@ class Roles extends React.Component<{}>{
 }
 
 
+//Router for å kunne gå inn på de forskjellige sidene.
 let root = document.getElementById('root');
 if(root) {
   ReactDOM.render((
